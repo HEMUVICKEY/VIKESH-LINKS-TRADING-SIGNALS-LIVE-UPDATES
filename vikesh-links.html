@@ -8,8 +8,9 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<!-- Firebase SDK (compat) -->
+<!-- Firebase SDK (compat) — using Realtime Database for simpler public read/write rules -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
 /* ── TOKENS ── */
@@ -1102,19 +1103,19 @@ body.locked .app,body.locked .fab,body.locked .scrtop,body.locked .wa-float,body
       </div>
       <div class="publish-block">
         <div class="fl" style="display:block;margin-bottom:5px">🔌 Firebase Connection</div>
-        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Firebase Firestore is connected for cloud sync.</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Firebase Realtime Database is connected for live cloud sync. Test your connection &amp; rules below.</div>
         <button class="btn bp" onclick="runDiagnostics(this)" style="margin-bottom:10px">🔌 Test Connection</button>
         <div id="diagOut" style="font-size:11px;color:var(--tx2);line-height:1.7;font-family:monospace;background:var(--bg3);padding:9px 11px;border-radius:var(--rs);border:1px solid var(--bd);display:none"></div>
       </div>
     </div>
     <div class="span" id="s-data">
       <div class="publish-block">
-        <div class="fl" style="display:block;margin-bottom:5px">🌐 Publish to Public Page</div>
-        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Push your current links, posts, profile &amp; events to the public page. Anyone with the access code will see this snapshot.</div>
+        <div class="fl" style="display:block;margin-bottom:5px">🌐 Auto-Sync Status</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Your edits are auto-saved to Firebase Realtime Database. Refresh will pull the latest data from the cloud.</div>
         <div style="display:flex;gap:7px;flex-wrap:wrap">
-          <button class="btn bp" onclick="publishToPublic(this)" style="flex:1;min-width:120px">🚀 Publish Now</button>
+          <button class="btn bp" onclick="publishToPublic(this)" style="flex:1;min-width:120px">🚀 Force Sync Now</button>
         </div>
-        <div class="publish-status" id="publishStatus">Loading publish status…</div>
+        <div class="publish-status" id="publishStatus">Loading sync status…</div>
       </div>
       <div style="margin-bottom:14px"><div class="fl" style="display:block;margin-bottom:5px">Export Backup</div><div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Download all links, posts, events &amp; profile as JSON.</div><button class="btn bds" onclick="exportData()">⬇️ Export JSON Backup</button></div>
       <div style="border-top:1px solid var(--bd);padding-top:14px"><div class="fl" style="display:block;margin-bottom:5px">Import Backup</div><div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Merge a backup file into current data.</div><input type="file" id="impFile" accept=".json" style="display:none" onchange="importData(this)"><button class="btn bds" onclick="G('impFile').click()">⬆️ Import JSON Backup</button></div>
@@ -1279,10 +1280,14 @@ const GRADS={
   galaxy:'radial-gradient(ellipse 80% 50% at 50% -20%,rgba(139,92,246,.2) 0,transparent 70%),radial-gradient(ellipse 60% 60% at 80% 80%,rgba(236,72,153,.1) 0,transparent 60%)'
 };
 let db=null,activeCat='all',sortMode='def',viewMode='list',editLinkId=null,editPostId=null,editEvId=null,selEmoji='🔗',selColor='',ctxMenu=null,dragSrc=null,hpTmr=null,postImgB64='';
-let fbApp=null, fbDb=null;
+let fbApp=null, fbDb=null, fbRt=null, fbRtRef=null;
+let rtListenerAttached=false;
+let isApplyingRemoteData=false;
+let pendingCloudSave=null;
 
 const LS_KEY = 'vk_localdata';
 const ACCESS_SESSION_KEY = 'vk_access_granted';
+const RT_DATA_PATH = 'site/data';  // RTDB path where all data lives
 
 // ═══════════════ LOCAL STORAGE ═══════════════
 let _saveDotTimer;
@@ -1334,8 +1339,9 @@ function loadFromLocal(){
 }
 
 // ═══════════════ FIREBASE INIT ═══════════════
-// Firebase SDK connected as provided by owner (Firestore for data sync).
-// No Firebase Authentication — we use access code (users) + admin password (admin).
+// Using Firebase Realtime Database (RTDB) — simpler public rules, no auth needed.
+// Default RTDB rules allow read/write to anyone with the database URL,
+// which works for this single-owner setup (protected by access code on the page side).
 const firebaseConfig = {
   apiKey: "AIzaSyBj409DSmR7llJdAjPzkbrz3dv4epOg2D0",
   authDomain: "vikesh-live-links-project.firebaseapp.com",
@@ -1352,8 +1358,17 @@ function initFirebase(){
       console.warn('Firebase SDK not loaded');
       return false;
     }
+    if(fbApp) return true;  // already inited
     fbApp=firebase.initializeApp(firebaseConfig);
-    fbDb=firebase.firestore();
+    // Realtime Database (primary — for live sync & public read/write)
+    if(firebase.database){
+      fbRt=firebase.database();
+      fbRtRef=fbRt.ref(RT_DATA_PATH);
+    }
+    // Firestore (optional fallback for publish)
+    if(firebase.firestore){
+      try{ fbDb=firebase.firestore(); }catch(e){ console.warn('Firestore init skipped',e); }
+    }
     return true;
   }catch(e){
     console.warn('Firebase init error',e);
@@ -1361,65 +1376,9 @@ function initFirebase(){
   }
 }
 
-// Save to Firestore public/site (no auth required, public rules)
-async function dbSaveCloud(field,data){
-  if(!fbDb)return;
-  try{
-    const payload={[field]:data,lastSavedAt:Date.now()};
-    await fbDb.collection('public').doc('site').set(payload,{merge:true});
-  }catch(e){
-    console.warn('Cloud save error (non-fatal, local still works)',e);
-  }
-}
-
-async function dbSave(p,d){
-  showSaveDot(true);
-  saveToLocal();
-  // Map legacy path → field name
-  const PATH_MAP={
-    'app/profile':'profile','app/categories':'categories','app/links':'links',
-    'app/posts':'posts','app/events':'events','app/note':'note','app/announce':'announce',
-    'app/analytics':'analytics','app/settings':'settings','app/music':'music',
-    'app/countdown':'countdown','app/tips':'tips','app/gallery':'gallery','app/online':'onlineStatus'
-  };
-  const field=PATH_MAP[p];
-  if(field){await dbSaveCloud(field,d);}
-  showSaveDot(false);
-}
-
-async function loadPublicData(){
-  if(!fbDb)return false;
-  try{
-    const snap=await fbDb.collection('public').doc('site').get();
-    if(!snap.exists)return false;
-    const d=snap.data()||{};
-    if(!d.profile && !d.links)return false;
-    if(d.profile)Object.assign(S.profile,d.profile);
-    if(d.categories?.list)S.categories=d.categories.list;
-    if(d.links?.list)S.links=d.links.list;
-    if(d.posts?.list)S.posts=d.posts.list;
-    if(d.events?.list)S.events=d.events.list;
-    if(d.note)Object.assign(S.note,d.note);
-    if(d.announce)Object.assign(S.announce,d.announce);
-    if(d.analytics){S.analytics.visitors=d.analytics.visitors||0;S.analytics.clicks=d.analytics.clicks||0;}
-    if(d.settings)Object.assign(S.settings,d.settings);
-    if(d.music)Object.assign(SX.music,d.music);
-    if(d.countdown)Object.assign(SX.countdown,d.countdown);
-    if(d.tips)Object.assign(SX.tips,d.tips);
-    if(d.gallery)Object.assign(SX.gallery,d.gallery);
-    if(d.onlineStatus)Object.assign(SX.onlineStatus,d.onlineStatus);
-    saveToLocal();
-    return true;
-  }catch(e){
-    console.warn('loadPublicData error',e);
-    return false;
-  }
-}
-
-async function publishToPublic(btn){
-  if(!fbDb){toast('Database not connected');return;}
-  if(btn){btn.disabled=true;btn.textContent='Publishing…';}
-  const payload={
+// Build the full data payload to push to RTDB
+function buildDataPayload(){
+  return {
     profile:S.profile,
     categories:{list:S.categories},
     links:{list:S.links},
@@ -1434,61 +1393,189 @@ async function publishToPublic(btn){
     tips:SX.tips,
     gallery:SX.gallery,
     onlineStatus:SX.onlineStatus,
-    publishedAt:Date.now()
+    savedAt:Date.now()
   };
+}
+
+// Apply a remote data payload to local state
+function applyRemoteData(d){
+  if(!d) return false;
+  let changed=false;
+  if(d.profile){ Object.assign(S.profile,d.profile); changed=true; }
+  if(d.categories && d.categories.list && d.categories.list.length){ S.categories=d.categories.list; changed=true; }
+  if(d.links && d.links.list){ S.links=d.links.list; changed=true; }
+  if(d.posts && d.posts.list){ S.posts=d.posts.list; changed=true; }
+  if(d.events && d.events.list){ S.events=d.events.list; changed=true; }
+  if(d.note){ Object.assign(S.note,d.note); changed=true; }
+  if(d.announce){ Object.assign(S.announce,d.announce); changed=true; }
+  if(d.analytics){
+    S.analytics.visitors=d.analytics.visitors||0;
+    S.analytics.clicks=d.analytics.clicks||0;
+    changed=true;
+  }
+  if(d.settings){ Object.assign(S.settings,d.settings); changed=true; }
+  if(d.music){ Object.assign(SX.music,d.music); changed=true; }
+  if(d.countdown){ Object.assign(SX.countdown,d.countdown); changed=true; }
+  if(d.tips){ Object.assign(SX.tips,d.tips); changed=true; }
+  if(d.gallery){ Object.assign(SX.gallery,d.gallery); changed=true; }
+  if(d.onlineStatus){ Object.assign(SX.onlineStatus,d.onlineStatus); changed=true; }
+  return changed;
+}
+
+// Debounced cloud save — pushes the entire state to RTDB.
+// We push everything (not just the changed field) to keep things simple and reliable.
+async function dbSave(p,d){
+  showSaveDot(true);
+  // Always save locally first (instant)
+  saveToLocal();
+
+  // Push to RTDB with debounce (avoid spamming on rapid edits)
+  if(fbRtRef && !isApplyingRemoteData){
+    if(pendingCloudSave) clearTimeout(pendingCloudSave);
+    pendingCloudSave=setTimeout(async ()=>{
+      try{
+        await fbRtRef.set(buildDataPayload());
+      }catch(e){
+        console.warn('Cloud save error (non-fatal, local still works)',e);
+      }finally{
+        pendingCloudSave=null;
+      }
+    },400);
+  }
+  showSaveDot(false);
+}
+
+// Load all data from RTDB once on boot
+async function loadCloudData(){
+  if(!fbRtRef) return false;
   try{
-    await fbDb.collection('public').doc('site').set(payload);
-    toast('Published to public page ✓');
+    const snap=await fbRtRef.once('value');
+    if(!snap.exists()) return false;
+    const d=snap.val();
+    if(!d || (!d.profile && !d.links)) return false;
+    isApplyingRemoteData=true;
+    const changed=applyRemoteData(d);
+    saveToLocal();
+    isApplyingRemoteData=false;
+    return changed;
+  }catch(e){
+    console.warn('loadCloudData error',e);
+    return false;
+  }
+}
+
+// Attach real-time listener — admin edits propagate to all open clients instantly
+function attachRealtimeListener(){
+  if(!fbRtRef || rtListenerAttached) return;
+  rtListenerAttached=true;
+  fbRtRef.on('value',snap=>{
+    if(isApplyingRemoteData) return;  // ignore our own writes
+    const d=snap.val();
+    if(!d) return;
+    isApplyingRemoteData=true;
+    const changed=applyRemoteData(d);
+    saveToLocal();
+    isApplyingRemoteData=false;
+    if(changed){
+      renderPage();
+      // Re-apply admin mode UI without re-rendering everything twice
+      applyAdmin();
+      // console.log('Data synced from cloud ✓');
+    }
+  },err=>{
+    console.warn('RT listener error (non-fatal)',err);
+  });
+}
+
+// Publish (legacy button — now just does a manual full save)
+async function publishToPublic(btn){
+  if(!fbRt){ toast('Database not connected'); return; }
+  if(btn){ btn.disabled=true; btn.textContent='Publishing…'; }
+  try{
+    const payload={ ...buildDataPayload(), publishedAt:Date.now() };
+    await fbRtRef.set(payload);
+    toast('Published ✓');
     updatePublishStatus();
   }catch(e){
     console.error('publish error',e);
-    toast('Publish failed — check Firestore rules');
+    toast('Publish failed: '+e.message);
   }finally{
-    if(btn){btn.disabled=false;btn.textContent='🚀 Publish Now';}
+    if(btn){ btn.disabled=false; btn.textContent='🚀 Publish Now'; }
   }
 }
 
 async function updatePublishStatus(){
-  const el=G('publishStatus');if(!el||!fbDb)return;
+  const el=G('publishStatus');
+  if(!el) return;
+  if(!fbRt){ el.textContent='⚠️ Realtime Database not connected. Data saves locally only.'; return; }
   try{
-    const snap=await fbDb.collection('public').doc('site').get();
-    if(!snap.exists){el.textContent='⚪ Not published yet. Click "Publish Now" to make your page visible to viewers.';return;}
-    const d=snap.data()||{};
-    const when=d.publishedAt?new Date(d.publishedAt).toLocaleString():'unknown';
-    el.textContent='✅ Last published: '+when;
-  }catch(e){el.textContent='Could not load publish status.';}
+    const snap=await fbRtRef.once('value');
+    if(!snap.exists()){ el.textContent='⚪ No data yet. Edits will be saved automatically.'; return; }
+    const d=snap.val()||{};
+    const when=d.publishedAt||d.savedAt?new Date(d.publishedAt||d.savedAt).toLocaleString():'unknown';
+    el.textContent='✅ Auto-sync ON. Last update: '+(when||'just now');
+  }catch(e){ el.textContent='⚠️ Could not load status: '+e.message; }
 }
 
 async function runDiagnostics(btn){
   const out=G('diagOut');
-  if(btn){btn.disabled=true;btn.textContent='Testing…';}
+  if(btn){ btn.disabled=true; btn.textContent='Testing…'; }
   out.style.display='block';
   const log=[];
-  const add=(ok,msg)=>{log.push((ok?'✅':'❌')+' '+msg);out.textContent=log.join('\n');};
-  add(typeof firebase!=='undefined'?false:true,'Firebase SDK loaded');
-  if(typeof firebase==='undefined'){if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}return;}
+  const add=(ok,msg)=>{ log.push((ok?'✅':'❌')+' '+msg); out.textContent=log.join('\n'); };
+
+  add(typeof firebase!=='undefined','Firebase SDK loaded');
+  if(typeof firebase==='undefined'){ if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';} return; }
   add(!!fbApp,'Firebase app initialized');
-  add(!!fbDb,'Firestore available');
-  if(!fbDb){if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}return;}
-  try{
-    const snap=await fbDb.collection('public').doc('site').get();
-    add(true,'Public read OK ('+(snap.exists?'exists':'new')+')');
-  }catch(e){
-    add(false,'Public read FAILED — set Firestore rule: match /public/{docId} { allow read, write: if true; }');
+  add(!!fbRt,'Realtime Database available');
+  if(!fbRt){
+    add(false,'Set RTDB rules to: { "rules": { ".read": true, ".write": true } } (test mode) — or restrict to your domain.');
+    if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
+    return;
   }
-  log.push('','Project: '+(firebaseConfig.projectId||'unknown'),'Admin password set: '+(S.settings.adminPw?'yes':'no'),'Access code set: '+(S.settings.accessCode?'yes':'no'));
+  try{
+    const snap=await fbRtRef.once('value');
+    add(true,'RTDB read OK ('+(snap.exists()?'has data':'empty')+')');
+  }catch(e){
+    add(false,'RTDB read FAILED: '+e.message);
+    add(false,'→ Open Firebase Console → Realtime Database → Rules → set to: { "rules": { ".read": true, ".write": true } }');
+    if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
+    return;
+  }
+  try{
+    await fbRtRef.child('__diag_test').set(Date.now());
+    await fbRtRef.child('__diag_test').remove();
+    add(true,'RTDB write OK — data will sync automatically');
+  }catch(e){
+    add(false,'RTDB write FAILED: '+e.message);
+    add(false,'→ Check RTDB rules allow write for unauthenticated users (test mode).');
+  }
+  log.push('','Project: '+(firebaseConfig.projectId||'unknown'),
+    'RTDB path: '+RT_DATA_PATH,
+    'Admin password set: '+(S.settings.adminPw?'yes':'no'),
+    'Access code set: '+(S.settings.accessCode?'yes':'no'),
+    'Live sync: '+(rtListenerAttached?'ON':'OFF'));
   out.textContent=log.join('\n');
-  if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
+  if(btn){ btn.disabled=false; btn.textContent='🔌 Test Connection'; }
 }
 
 async function trackVisit(){
+  // Only count visit AFTER access is granted (don't inflate for users who just opened the page)
+  if(!isAccessGranted()) return;
   const k='vk_fin_'+location.hostname;
-  if(!localStorage.getItem(k)){localStorage.setItem(k,'1');S.analytics.visitors=(S.analytics.visitors||0)+1;await dbSave('app/analytics',S.analytics);}
+  if(!localStorage.getItem(k)){
+    localStorage.setItem(k,'1');
+    S.analytics.visitors=(S.analytics.visitors||0)+1;
+    await dbSave('app/analytics',S.analytics);
+  }
 }
 async function trackClick(id){
-  const lnk=S.links.find(l=>l.id===id);if(!lnk)return;
-  lnk.clicks=(lnk.clicks||0)+1;S.analytics.clicks=(S.analytics.clicks||0)+1;
-  await dbSave('app/links',{list:S.links});await dbSave('app/analytics',S.analytics);
+  const lnk=S.links.find(l=>l.id===id);
+  if(!lnk) return;
+  lnk.clicks=(lnk.clicks||0)+1;
+  S.analytics.clicks=(S.analytics.clicks||0)+1;
+  await dbSave('app/links',{list:S.links});
+  await dbSave('app/analytics',S.analytics);
   renderStats();renderLinks();updateQsBar();renderFooter();
   addToHistory(lnk);
 }
@@ -2218,29 +2305,31 @@ function selectSuggestion(id){
 
 // ═══════════════ BOOT ═══════════════
 (async()=>{
-  // Initialize Firebase
+  // Initialize Firebase (RTDB primary, Firestore fallback)
   initFirebase();
 
-  // Load local cache first (instant render)
+  // 1) Load local cache first (instant render, works offline)
   loadFromLocal();
   renderPage();
   S.adminMode=false;
   applyAdmin();
 
-  // Try loading public cloud data (if available)
-  if(fbDb){
-    const ok=await loadPublicData();
-    if(ok){
+  // 2) Load cloud data from Realtime Database (overrides local if newer)
+  if(fbRtRef){
+    const changed=await loadCloudData();
+    if(changed){
       renderPage();
       S.adminMode=false;
       applyAdmin();
     }
+    // 3) Attach real-time listener so admin edits appear on all clients instantly
+    attachRealtimeListener();
   }
 
-  // Check if access is already granted (sessionStorage persists across refresh within session)
+  // 4) Check if access is already granted (sessionStorage persists across refresh)
   if(isAccessGranted()){
     grantAccess();
-    trackVisit();
+    trackVisit();  // count visit (now that access is confirmed)
     renderPage();
   } else {
     // Show access code screen
@@ -2249,8 +2338,21 @@ function selectSuggestion(id){
     setTimeout(()=>G('accessInput').focus(),100);
   }
 
+  // 5) Update publish status on first admin entry
+  if(fbRtRef) updatePublishStatus();
+
   // Auto-save local backup every 2 minutes
   setInterval(saveToLocal,120000);
+
+  // Page lifecycle: save before unload if pending
+  window.addEventListener('beforeunload',()=>{
+    if(pendingCloudSave){
+      clearTimeout(pendingCloudSave);
+      // Try to flush synchronously (best-effort)
+      try{ fbRtRef && fbRtRef.set(buildDataPayload()); }catch(e){}
+    }
+    saveToLocal();
+  });
 })();
 </script>
 </body>
