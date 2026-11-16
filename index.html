@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>All links  data</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/style.css">
-  </head>
-
-  <body>
-    <!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<meta name="theme-color" content="#08080f">
 <title>VIKESH — Links</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
 /* ── TOKENS ── */
@@ -39,23 +29,25 @@
   --sh:0 8px 32px rgba(100,80,220,.12);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;transition:background .3s,color .3s;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);-webkit-tap-highlight-color:transparent;overflow-x:hidden}
 #grad{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(124,92,252,.18) 0,transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(6,214,160,.06) 0,transparent 60%)}
 .app{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:0 16px 100px}
 
 /* NAV */
-.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:10px 0;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.nav-brand{display:flex;align-items:center;gap:8px}
-.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;background:linear-gradient(135deg,var(--ac2),var(--tl));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-cnt{min-width:18px;height:18px;border-radius:9px;background:var(--ac);color:#fff;font-size:10px;font-weight:700;padding:0 5px;display:inline-flex;align-items:center;justify-content:center}
-.admin-badge{display:none;align-items:center;gap:4px;padding:3px 9px;border-radius:50px;background:linear-gradient(135deg,var(--gd),#f97316);color:#fff;font-size:11px;font-weight:700}
+.nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:10px 0;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);background:rgba(8,8,15,.6)}
+.nav-brand{display:flex;align-items:center;gap:8px;min-width:0}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;background:linear-gradient(135deg,var(--ac2),var(--tl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.nav-cnt{min-width:18px;height:18px;border-radius:9px;background:var(--ac);color:#fff;font-size:10px;font-weight:700;padding:0 5px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.admin-badge{display:none;align-items:center;gap:4px;padding:3px 9px;border-radius:50px;background:linear-gradient(135deg,var(--gd),#f97316);color:#fff;font-size:11px;font-weight:700;white-space:nowrap}
 .admin-mode .admin-badge{display:flex}
-.nav-right{display:flex;gap:7px;align-items:center}
-.nb{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s}
+.nav-right{display:flex;gap:7px;align-items:center;flex-shrink:0}
+.nb{display:flex;align-items:center;gap:5px;padding:7px 13px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
 .nb:hover,.nb.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.ib{width:34px;height:34px;border-radius:50%;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ib{width:34px;height:34px;border-radius:50%;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
 .ib:hover{background:var(--sf2);color:var(--tx)}
+.admin-ib{display:none}
+body.access-granted .admin-ib{display:flex}
 
 /* HERO */
 .hero{text-align:center;padding:28px 0 14px}
@@ -69,19 +61,19 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 #avImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;display:none}
 .av-ring{position:absolute;inset:-4px;border-radius:50%;border:2px dashed var(--ac);opacity:0;transition:opacity .2s}
 .admin-mode .av-wrap:hover .av-ring{opacity:.6}
-.pname{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-top:12px;background:linear-gradient(135deg,var(--tx) 40%,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px}
-.phandle{color:var(--ac2);font-size:13px;font-weight:500;margin-top:3px}
-.pbio{color:var(--tx2);font-size:13px;line-height:1.65;margin:9px auto 0;max-width:420px}
+.pname{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-top:12px;background:linear-gradient(135deg,var(--tx) 40%,var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;word-break:break-word}
+.phandle{color:var(--ac2);font-size:13px;font-weight:500;margin-top:3px;word-break:break-word}
+.pbio{color:var(--tx2);font-size:13px;line-height:1.65;margin:9px auto 0;max-width:420px;word-break:break-word}
 .pmeta{display:flex;justify-content:center;gap:14px;margin-top:11px;flex-wrap:wrap}
 .pmeta span{display:flex;align-items:center;gap:4px;color:var(--tx3);font-size:12px}
 .socials{display:flex;justify-content:center;gap:7px;margin-top:13px;flex-wrap:wrap}
 .spill{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:50px;background:var(--sf);border:1px solid var(--bd);color:var(--tx2);font-size:13px;text-decoration:none;transition:all .2s}
 .spill:hover{background:var(--sf2);border-color:var(--bd2);color:var(--tx)}
 .stats{display:flex;margin:16px 0 0;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
-.sitem{flex:1;text-align:center;padding:12px 6px;border-right:1px solid var(--bd);cursor:default}
+.sitem{flex:1;text-align:center;padding:12px 4px;border-right:1px solid var(--bd);cursor:default;min-width:0}
 .sitem:last-child{border-right:none}
-.snum{font-size:19px;font-weight:700;color:var(--tx);font-family:'Space Grotesk',sans-serif}
-.slbl{font-size:10px;color:var(--tx3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.snum{font-size:18px;font-weight:700;color:var(--tx);font-family:'Space Grotesk',sans-serif}
+.slbl{font-size:9px;color:var(--tx3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
 .prog-wrap{display:none;margin-top:10px}
 .admin-mode .prog-wrap{display:block}
 .prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-bottom:3px}
@@ -90,7 +82,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 
 /* ACTION ROWS */
 .arow{display:flex;gap:7px;margin:14px 0 0;flex-wrap:wrap}
-.abtn{flex:1;min-width:85px;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 10px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.abtn{flex:1;min-width:70px;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 8px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
 .abtn:hover{background:var(--sf2);color:var(--tx)}
 .abtn.pr{background:var(--ac);border-color:var(--ac);color:#fff}
 .abtn.pr:hover{background:#6b4de6}
@@ -115,7 +107,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 
 /* SHARE BAR */
 .share-bar{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
-.spbtn{display:flex;align-items:center;gap:5px;padding:7px 12px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;border:none}
+.spbtn{display:flex;align-items:center;gap:5px;padding:8px 12px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none}
 .spbtn:hover{background:var(--sf2);color:var(--tx)}
 .spbtn.wa{background:#25d36620;border:1px solid #25d36640;color:#25d366}
 .spbtn.tg{background:rgba(0,136,204,.18);border:1px solid rgba(0,136,204,.35);color:#0088cc}
@@ -137,9 +129,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .qwrap{display:none;margin-bottom:14px}
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .sec-ttl{font-size:13px;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px}
-.sec-btn{font-size:11px;color:var(--ac2);background:none;border:1px solid var(--bd);border-radius:50px;cursor:pointer;padding:3px 9px;transition:all .18s}
+.sec-btn{font-size:11px;color:var(--ac2);background:none;border:1px solid var(--bd);border-radius:50px;cursor:pointer;padding:3px 9px;transition:all .18s;flex-shrink:0}
 .sec-btn:hover{background:var(--ac);border-color:var(--ac);color:#fff}
-.qlinks{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.qlinks{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;-webkit-overflow-scrolling:touch}
 .qlinks::-webkit-scrollbar{display:none}
 .qlink{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;cursor:pointer;text-decoration:none}
 .qlink-ico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:21px;border:1px solid var(--bd2);background:var(--sf2);transition:all .2s}
@@ -149,7 +141,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 /* NOTE CARD */
 .note-card{border-radius:var(--rs);border:1px solid rgba(124,92,252,.3);background:linear-gradient(135deg,rgba(124,92,252,.07),rgba(6,214,160,.04));padding:13px 15px;margin-bottom:12px;display:none;position:relative}
 .note-ttl{font-size:11px;font-weight:700;color:var(--ac2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
-.note-txt{font-size:13px;color:var(--tx2);line-height:1.6;white-space:pre-wrap}
+.note-txt{font-size:13px;color:var(--tx2);line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .note-edit{position:absolute;top:9px;right:10px;background:none;border:none;color:var(--tx3);font-size:13px;cursor:pointer;display:none}
 .admin-mode .note-edit{display:block}
 
@@ -163,26 +155,26 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .evday{font-size:15px;font-weight:800;color:var(--ac2);font-family:'Space Grotesk',sans-serif;line-height:1}
 .evmon{font-size:9px;color:var(--tx3);text-transform:uppercase;font-weight:600}
 .evinfo{flex:1;min-width:0}
-.evtitle{font-size:13px;font-weight:600;color:var(--tx)}
-.evdesc{font-size:12px;color:var(--tx2);margin-top:1px}
+.evtitle{font-size:13px;font-weight:600;color:var(--tx);word-break:break-word}
+.evdesc{font-size:12px;color:var(--tx2);margin-top:1px;word-break:break-word}
 .evtime{font-size:11px;color:var(--ac2);margin-top:2px;font-weight:500}
 .evtag{display:inline-flex;padding:1px 7px;border-radius:50px;font-size:10px;font-weight:600;margin-left:5px}
 .evtag.live{background:#ef444420;color:var(--rd);border:1px solid #ef444430}
 .evtag.soon{background:rgba(245,158,11,.18);color:var(--gd);border:1px solid rgba(245,158,11,.3)}
 
 /* VIEW TOGGLE + SORT */
-.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .view-toggle{display:flex;gap:4px}
 .vtb{width:28px;height:28px;border-radius:7px;border:1px solid var(--bd);background:var(--sf);color:var(--tx3);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s}
 .vtb.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.sortbar{display:flex;align-items:center;gap:5px;margin-bottom:11px;flex-wrap:wrap}
+.sortbar{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .sortlbl{font-size:11px;color:var(--tx3);font-weight:600}
 .sbtn{padding:4px 10px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);color:var(--tx3);font-size:11px;cursor:pointer;transition:all .2s}
 .sbtn:hover,.sbtn.on{background:var(--ac);border-color:var(--ac);color:#fff}
 
 /* SEARCH */
 .sw{position:relative;margin:14px 0 10px}
-.si{width:100%;padding:11px 16px 11px 42px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--sf);color:var(--tx);font-size:14px;outline:none;transition:all .2s;font-family:'Inter',sans-serif}
+.si{width:100%;padding:11px 16px 11px 42px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--sf);color:var(--tx);font-size:16px;outline:none;transition:all .2s;font-family:'Inter',sans-serif;-webkit-appearance:none}
 .si:focus{border-color:var(--ac);background:var(--sf2)}
 .si::placeholder{color:var(--tx3)}
 .sicon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--tx3);font-size:15px;pointer-events:none}
@@ -190,13 +182,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .si-clear.show{display:block}
 
 /* CAT TABS */
-.ctabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:3px;margin-bottom:12px;scrollbar-width:none}
+.ctabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:3px;margin-bottom:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .ctabs::-webkit-scrollbar{display:none}
 .ctab{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .ctab:hover{border-color:var(--bd2);color:var(--tx)}
 .ctab.on{background:var(--ac);border-color:var(--ac);color:#fff}
 
-/* LINK SECTION */
+/* LINKSECTION */
 .csec{margin-bottom:20px}
 .chead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .ctitle{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13px;color:var(--tx)}
@@ -209,7 +201,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 @media(min-width:500px){.lgrid.gv{grid-template-columns:1fr 1fr 1fr}}
 
 /* LINK CARD */
-.lcard{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--sf);cursor:pointer;transition:all .22s;position:relative;overflow:hidden;user-select:none}
+.lcard{display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:var(--rs);border:1px solid var(--bd);background:var(--sf);cursor:pointer;transition:all .22s;position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .lcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ac),var(--tl));opacity:0;transition:opacity .22s;pointer-events:none}
 .lcard:hover{border-color:var(--bd2);transform:translateY(-1px);box-shadow:var(--sh)}
 .lcard:hover::before{opacity:.04}
@@ -217,13 +209,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .lcard.pnd{border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.03)}
 .lcard.dragging{opacity:.5;border-color:var(--ac)}
 .lcard.dragov{border-color:var(--ac);border-style:dashed}
-/* Grid view card */
 .gv .lcard{flex-direction:column;align-items:center;text-align:center;padding:14px 10px;gap:7px}
 .gv .lcard .lurl,.gv .lcard .ldesc,.gv .lcard .dh{display:none!important}
 .gv .lcard .lico{width:46px;height:46px;font-size:22px}
 .gv .lcard .cright{position:absolute;top:5px;right:5px}
 .gv .lcard .aacts{display:none!important}
-/* Card elements */
 .pnbadge{position:absolute;top:6px;left:6px;font-size:9px;background:var(--gd);color:#000;border-radius:4px;padding:1px 5px;font-weight:700;z-index:2;pointer-events:none}
 .lcolordot{width:7px;height:7px;border-radius:50%;position:absolute;bottom:7px;right:7px;z-index:2;pointer-events:none}
 .exp-badge{font-size:9px;padding:1px 5px;border-radius:4px;background:#ef444420;color:var(--rd);border:1px solid #ef444430;margin-left:4px;font-weight:600;vertical-align:middle}
@@ -232,7 +222,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .admin-mode .dh{display:flex;align-items:center}
 .lico{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;position:relative;z-index:1;background:var(--sf2);border:1px solid var(--bd)}
 .linfo{flex:1;min-width:0;position:relative;z-index:1}
-.ltitle{font-size:14px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ltitle{font-size:14px;font-weight:600;color:var(--tx);display:flex;align-items:center;gap:5px;flex-wrap:wrap;word-break:break-word}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--tl);box-shadow:0 0 5px var(--tl);flex-shrink:0}
 .sdot.off{background:var(--tx3);box-shadow:none}
 .lurl{font-size:11px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
@@ -264,23 +254,23 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .ptag.sell{background:#ef444420;color:var(--rd);border:1px solid #ef444440}
 .ptag.info{background:rgba(124,92,252,.18);color:var(--ac2);border:1px solid rgba(124,92,252,.3)}
 .ptag.news{background:rgba(245,158,11,.18);color:var(--gd);border:1px solid rgba(245,158,11,.3)}
-.post-title{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.post-title{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:4px;word-break:break-word}
 .post-txt{font-size:13px;color:var(--tx2);line-height:1.6;white-space:pre-wrap;word-break:break-word}
 .rxns{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
 .rxn{display:flex;align-items:center;gap:3px;padding:3px 8px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);font-size:12px;cursor:pointer;transition:all .18s;user-select:none}
 .rxn:hover{border-color:var(--ac);background:var(--sf2)}
 .rxn.on{border-color:var(--ac);background:rgba(124,92,252,.18);color:var(--ac2)}
 .rxn-cnt{font-size:11px;color:var(--tx2);font-weight:500}
-.post-meta{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)}
+.post-meta{display:flex;align-items:center;justify-content:space-between;margin-top:9px;padding-top:8px;border-top:1px solid var(--bd);flex-wrap:wrap;gap:5px}
 .post-time{font-size:11px;color:var(--tx3)}
-.post-acts{display:flex;gap:5px}
+.post-acts{display:flex;gap:5px;flex-wrap:wrap}
 .pact{font-size:11px;padding:4px 10px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf2);color:var(--tx2);cursor:pointer;transition:all .2s;font-weight:500}
 .pact:hover{background:var(--ac);border-color:var(--ac);color:#fff}
 
 /* CONTEXT MENU */
-.ctx{position:fixed;z-index:9999;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rs);padding:5px;min-width:200px;box-shadow:0 20px 60px rgba(0,0,0,.6);backdrop-filter:blur(20px);animation:ctxIn .14s ease}
+.ctx{position:fixed;z-index:9999;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rs);padding:5px;min-width:200px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.6);backdrop-filter:blur(20px);animation:ctxIn .14s ease}
 @keyframes ctxIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.ctx-hdr{padding:5px 11px 3px;font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.ctx-hdr{padding:5px 11px 3px;font-size:10px;color:var(--tx3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;word-break:break-word}
 .ctx-sep{height:1px;background:var(--bd);margin:3px 0}
 .ci{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:7px;font-size:13px;font-weight:500;color:var(--tx2);cursor:pointer;transition:all .14s;white-space:nowrap;width:100%;text-align:left;border:none;background:none}
 .ci:hover{background:var(--sf2);color:var(--tx)}
@@ -294,7 +284,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .asm{font-size:11px;color:var(--tx3);margin-top:2px}
 .brow{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--rs);background:var(--sf);border:1px solid var(--bd);margin-bottom:5px}
 .bname{flex:1;font-size:12px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.btrack{flex:2;height:5px;background:var(--sf2);border-radius:3px;overflow:hidden}
+.btrack{flex:2;height:5px;background:var(--sf2);border-radius:3px;overflow:hidden;min-width:40px}
 .bfill{height:100%;background:linear-gradient(90deg,var(--ac),var(--tl));border-radius:3px;transition:width .6s}
 .bnum{font-size:11px;color:var(--ac2);font-weight:600;min-width:22px;text-align:right}
 .mini-chart{display:flex;align-items:flex-end;gap:4px;height:48px;margin:8px 0 2px}
@@ -328,17 +318,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-hei
 .ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0)}
 .ov.open{display:flex}
 @media(min-width:580px){.ov{align-items:center}}
-.modal{background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:530px;max-height:92vh;overflow-y:auto;padding:22px;box-shadow:0 -20px 60px rgba(0,0,0,.5)}
+.modal{background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:530px;max-height:92vh;overflow-y:auto;padding:22px;box-shadow:0 -20px 60px rgba(0,0,0,.5);-webkit-overflow-scrolling:touch}
 @media(min-width:580px){.modal{border-radius:var(--r)}}
 .mdrag{width:38px;height:4px;border-radius:2px;background:var(--bd2);margin:0 auto 18px}
 @media(min-width:580px){.mdrag{display:none}}
-.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.mtitle{font-size:17px;font-weight:700;font-family:'Space Grotesk',sans-serif}
-.mcls{background:none;border:none;color:var(--tx3);font-size:19px;cursor:pointer;padding:0;line-height:1}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.mtitle{font-size:17px;font-weight:700;font-family:'Space Grotesk',sans-serif;word-break:break-word}
+.mcls{background:none;border:none;color:var(--tx3);font-size:19px;cursor:pointer;padding:0;line-height:1;flex-shrink:0}
 .mcls:hover{color:var(--tx)}
 .fg{margin-bottom:12px}
 .fl{font-size:11px;font-weight:600;color:var(--tx3);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.5px}
-.fi{width:100%;padding:10px 13px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.fi{width:100%;padding:10px 13px;border-radius:var(--rs);border:1px solid var(--bd2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .fi:focus{border-color:var(--ac)}
 .fi::placeholder{color:var(--tx3)}
 select.fi option{background:var(--bg2)}
@@ -365,31 +355,36 @@ select.fi option{background:var(--bg2)}
 .wa-float{position:fixed;bottom:84px;right:16px;z-index:498;width:44px;height:44px;border-radius:50%;background:#25d366;display:none;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .2s}
 .wa-float:hover{transform:scale(1.12)}
 
+/* ACCESS CODE SCREEN */
+.access-scr{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0a0a14,#13112a 60%,#0a1a1a);backdrop-filter:blur(20px);overflow-y:auto}
+.access-scr.hide{display:none}
+.access-card{background:var(--bg2);border:1px solid var(--bd2);border-radius:22px;padding:38px 28px;width:100%;max-width:360px;box-shadow:0 28px 80px rgba(0,0,0,.7);position:relative;overflow:hidden;text-align:center}
+.access-card::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,252,.28),transparent 70%);pointer-events:none}
+.access-logo{font-size:54px;margin-bottom:12px;position:relative;z-index:1;animation:lLogoPop .6s cubic-bezier(.34,1.56,.64,1) both}
+.access-title{font-size:23px;font-weight:800;margin-bottom:5px;font-family:'Space Grotesk',sans-serif;background:linear-gradient(135deg,var(--tx),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1}
+.access-sub{color:var(--tx2);font-size:13px;margin-bottom:22px;position:relative;z-index:1}
+.access-field{position:relative;margin-bottom:11px;z-index:1}
+.access-field .fi{padding-left:42px;font-size:16px}
+.access-field .l-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+.access-err{color:var(--rd);font-size:12px;margin:8px 0;padding:9px 12px;background:#ef444415;border-radius:9px;border:1px solid #ef444430;display:none;position:relative;z-index:1}
+.access-err.show{display:block}
+.access-info{font-size:11px;color:var(--tx3);margin-top:12px;text-align:center;position:relative;z-index:1;line-height:1.55}
+.access-admin-link{display:block;margin-top:14px;font-size:12px;color:var(--tx3);cursor:pointer;background:none;border:none;text-decoration:underline;position:relative;z-index:1}
+.access-admin-link:hover{color:var(--ac2)}
+
 /* LOGIN */
 .lscr{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.85);backdrop-filter:blur(20px)}
 .lscr.open{display:flex}
-.login-card{
-  background:var(--bg2);border:1px solid var(--bd2);border-radius:20px;
-  padding:40px 32px;width:100%;max-width:360px;
-  text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.7);
-  display:flex;flex-direction:column;align-items:center;gap:0;
-  position:relative;overflow:hidden;
-}
-.login-card::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(124,92,252,.25),transparent 70%);
-  pointer-events:none;
-}
+.login-card{background:var(--bg2);border:1px solid var(--bd2);border-radius:20px;padding:40px 30px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.7);display:flex;flex-direction:column;align-items:center;gap:0;position:relative;overflow:hidden}
+.login-card::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.25),transparent 70%);pointer-events:none}
 .llogo{font-size:52px;margin-bottom:12px;position:relative;z-index:1;animation:lLogoPop .6s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes lLogoPop{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
-.ltitle{font-size:24px;font-weight:800;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;position:relative;z-index:1;background:linear-gradient(135deg,var(--tx),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ltitle{font-size:22px;font-weight:800;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;position:relative;z-index:1;background:linear-gradient(135deg,var(--tx),var(--gd));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .lsub{color:var(--tx2);font-size:13px;margin-bottom:24px;position:relative;z-index:1}
 .lerr{color:var(--rd);font-size:12px;margin-top:8px;display:none;padding:8px 12px;background:#ef444415;border-radius:8px;border:1px solid #ef444430;width:100%}
 .login-input-wrap{width:100%;position:relative;margin-bottom:12px}
-.login-input-wrap .fi{padding-left:42px;width:100%}
+.login-input-wrap .fi{padding-left:42px;width:100%;font-size:16px}
 .login-input-wrap .l-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
-.login-hint{font-size:11px;color:var(--tx3);margin-top:4px;text-align:left;width:100%}
 .login-divider{width:100%;height:1px;background:var(--bd);margin:16px 0}
 
 /* SWATCHES */
@@ -400,13 +395,13 @@ select.fi option{background:var(--bg2)}
 /* ADMIN QUICK BAR */
 .qsbar{display:none;gap:0;background:linear-gradient(135deg,rgba(124,92,252,.1),rgba(6,214,160,.06));border:1px solid var(--bd2);border-radius:var(--rs);overflow:hidden;margin-bottom:12px}
 .admin-mode .qsbar{display:flex}
-.qsitem{flex:1;text-align:center;padding:9px 4px;border-right:1px solid var(--bd)}
+.qsitem{flex:1;text-align:center;padding:9px 4px;border-right:1px solid var(--bd);min-width:0}
 .qsitem:last-child{border-right:none}
 .qsnum{font-size:14px;font-weight:700;color:var(--ac2);font-family:'Space Grotesk',sans-serif}
 .qslbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px}
 
 /* TOAST */
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg2);border:1px solid var(--bd2);color:var(--tx);padding:10px 18px;border-radius:50px;font-size:13px;font-weight:500;z-index:9999;transition:transform .28s;box-shadow:var(--sh);display:flex;align-items:center;gap:6px;white-space:nowrap;pointer-events:none}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg2);border:1px solid var(--bd2);color:var(--tx);padding:10px 18px;border-radius:50px;font-size:13px;font-weight:500;z-index:9999;transition:transform .28s;box-shadow:var(--sh);display:flex;align-items:center;gap:6px;white-space:nowrap;pointer-events:none;max-width:90vw;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
 /* EMPTY + FOOTER */
@@ -417,11 +412,11 @@ select.fi option{background:var(--bg2)}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--rd);box-shadow:0 0 6px var(--rd);animation:pulse 1.5s ease infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* ── ONLINE STATUS ── */
+/* ONLINE STATUS */
 .online-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:50px;background:#06d6a015;border:1px solid #06d6a030;font-size:11px;color:var(--tl);font-weight:600;margin-top:8px}
 .online-pulse{width:7px;height:7px;border-radius:50%;background:var(--tl);box-shadow:0 0 5px var(--tl);animation:pulse 1.8s ease infinite}
 
-/* ── MUSIC PLAYER BAR ── */
+/* MUSIC PLAYER BAR */
 .music-bar{display:none;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rs);border:1px solid var(--bd2);background:linear-gradient(135deg,rgba(124,92,252,.1),rgba(6,214,160,.06));margin-bottom:12px}
 .music-bar.show{display:flex}
 .music-ico{font-size:24px;flex-shrink:0;animation:spin 3s linear infinite;animation-play-state:paused}
@@ -443,42 +438,42 @@ select.fi option{background:var(--bg2)}
 @keyframes wave{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
 .music-bar:not(.playing) .mbar-wave{animation:none;transform:scaleY(.3)}
 
-/* ── COUNTDOWN TIMER ── */
+/* COUNTDOWN TIMER */
 .countdown-wrap{display:none;border-radius:var(--rs);border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.06);padding:14px 16px;margin-bottom:12px;text-align:center}
 .countdown-label{font-size:11px;font-weight:700;color:var(--rd);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
-.countdown-timer{display:flex;justify-content:center;gap:12px}
+.countdown-timer{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 .ctd-unit{text-align:center}
-.ctd-num{font-size:28px;font-weight:800;color:var(--tx);font-family:'Space Grotesk',sans-serif;line-height:1;min-width:40px;display:block}
+.ctd-num{font-size:24px;font-weight:800;color:var(--tx);font-family:'Space Grotesk',sans-serif;line-height:1;min-width:36px;display:block}
 .ctd-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.ctd-sep{font-size:24px;font-weight:700;color:var(--tx3);line-height:1;margin-top:4px;animation:blink 1s step-end infinite}
+.ctd-sep{font-size:22px;font-weight:700;color:var(--tx3);line-height:1;margin-top:2px;animation:blink 1s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
-/* ── LINK HISTORY (recently clicked) ── */
+/* LINK HISTORY */
 .history-wrap{display:none;margin-bottom:12px}
-.history-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.history-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .history-row::-webkit-scrollbar{display:none}
 .hitem{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:50px;border:1px solid var(--bd);background:var(--sf);font-size:11px;color:var(--tx2);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .18s}
 .hitem:hover{background:var(--sf2);border-color:var(--bd2);color:var(--tx)}
 
-/* ── SEARCH SUGGESTIONS ── */
+/* SEARCH SUGGESTIONS */
 .search-suggestions{position:absolute;top:100%;left:0;right:0;z-index:300;background:var(--bg2);border:1px solid var(--bd2);border-top:none;border-radius:0 0 var(--rs) var(--rs);overflow:hidden;display:none;box-shadow:var(--sh)}
 .sug-item{display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;transition:background .15s;font-size:13px;color:var(--tx2)}
 .sug-item:hover{background:var(--sf2);color:var(--tx)}
 .sug-ico{font-size:15px;flex-shrink:0}
 
-/* ── GALLERY SECTION ── */
+/* GALLERY SECTION */
 .gallery-wrap{display:none;margin-bottom:16px}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;border-radius:var(--rs);overflow:hidden}
 .gallery-img{aspect-ratio:1;object-fit:cover;cursor:zoom-in;transition:opacity .18s;width:100%;display:block}
 .gallery-img:hover{opacity:.85}
-.gallery-add{aspect-ratio:1;background:var(--sf2);border:2px dashed var(--bd2);border-radius:0;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:var(--tx3);transition:all .18s}
+.gallery-add{aspect-ratio:1;background:var(--sf2);border:2px dashed var(--bd2);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:var(--tx3);transition:all .18s}
 .admin-mode .gallery-add{display:flex}
 .gallery-add:hover{background:var(--sf3);color:var(--ac)}
 
-/* ── TESTIMONIALS / TIPS ── */
+/* TIPS / TESTIMONIALS */
 .tip-card{border-radius:var(--rs);border:1px solid var(--bd);background:var(--sf);padding:14px 16px;margin-bottom:12px;display:none;position:relative}
 .tip-quote{font-size:30px;color:var(--ac);opacity:.4;line-height:1;margin-bottom:4px}
-.tip-text{font-size:13px;color:var(--tx2);line-height:1.6;font-style:italic}
+.tip-text{font-size:13px;color:var(--tx2);line-height:1.6;font-style:italic;word-break:break-word}
 .tip-author{font-size:11px;color:var(--tx3);margin-top:8px;font-weight:600}
 .tip-nav{display:flex;gap:5px;position:absolute;top:12px;right:12px}
 .tip-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--bd);background:var(--sf2);color:var(--tx3);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
@@ -487,248 +482,166 @@ select.fi option{background:var(--bg2)}
 .tip-dot{width:5px;height:5px;border-radius:50%;background:var(--bd2);transition:background .2s;cursor:pointer}
 .tip-dot.on{background:var(--ac)}
 
-/* ── LINK STATS MINI CARD ── */
-.link-stat-banner{display:flex;gap:0;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;margin-bottom:12px}
-.lsb-item{flex:1;text-align:center;padding:9px 4px;border-right:1px solid var(--bd)}
-.lsb-item:last-child{border-right:none}
-.lsb-num{font-size:14px;font-weight:700;color:var(--ac2);font-family:'Space Grotesk',sans-serif}
-.lsb-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
-
-/* ── ANIMATE CARD ENTRY ── */
+/* ANIMATE CARD ENTRY */
 @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.lcard{animation:cardIn .3s ease both}
+.lcard{animation:cardIn .3s ease both;border-left:3px solid transparent}
+.lcard.pnd{border-left-color:var(--gd)}
+.lcard:hover{border-left-color:var(--ac)}
 .post-card{animation:cardIn .3s ease both}
 
-/* ── BADGE / LABEL on category ── */
-.cat-color-stripe{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:var(--rs) 0 0 var(--rs)}
-
-/* ── FULLSCREEN PROFILE ── */
-.profile-modal-btn{display:none;position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:8px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:12px;cursor:pointer;z-index:5;backdrop-filter:blur(8px)}
-.admin-mode .profile-modal-btn{display:flex;align-items:center;gap:4px}
-
-/* ── COPY BURST ANIMATION ── */
+/* COPY BURST */
 @keyframes copyBurst{0%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(.9)}100%{transform:scale(1)}}
 .cpbtn.ok{animation:copyBurst .4s ease}
 
-/* ── ADMIN FLOATING TOOLBAR ── */
-.admin-toolbar{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);z-index:490;display:none;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--bd2);border-radius:50px;padding:7px 12px;box-shadow:0 8px 32px rgba(0,0,0,.5);backdrop-filter:blur(16px);white-space:nowrap}
+/* ADMIN FLOATING TOOLBAR */
+.admin-toolbar{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);z-index:490;display:none;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--bd2);border-radius:50px;padding:7px 12px;box-shadow:0 8px 32px rgba(0,0,0,.5);backdrop-filter:blur(16px);white-space:nowrap;max-width:95vw;overflow-x:auto;scrollbar-width:none}
+.admin-toolbar::-webkit-scrollbar{display:none}
 .admin-mode .admin-toolbar{display:flex}
-.atb{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:50px;border:none;background:transparent;color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s}
+.atb{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:50px;border:none;background:transparent;color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;flex-shrink:0}
 .atb:hover{background:var(--sf2);color:var(--tx)}
 .atb.pr{background:var(--ac);color:#fff}
 .atb.pr:hover{background:#6b4de6}
 
-/* ── SKELETON LOADER ── */
-.skel{background:linear-gradient(90deg,var(--sf) 25%,var(--sf2) 50%,var(--sf) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:var(--rs)}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* ── AUTO-SAVE INDICATOR ── */
-.save-dot{
-  position:fixed;top:14px;left:50%;transform:translateX(-50%);
-  display:none;align-items:center;gap:5px;
-  background:var(--bg2);border:1px solid var(--bd2);
-  border-radius:50px;padding:5px 12px;font-size:11px;
-  color:var(--tl);font-weight:600;z-index:9000;
-  box-shadow:var(--sh);backdrop-filter:blur(10px);
-  animation:fadeInDown .3s ease;
-}
+/* AUTO-SAVE INDICATOR */
+.save-dot{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--bd2);border-radius:50px;padding:5px 12px;font-size:11px;color:var(--tl);font-weight:600;z-index:9000;box-shadow:var(--sh);backdrop-filter:blur(10px)}
 .save-dot.show{display:flex}
 .save-dot.saving{color:var(--gd)}
-@keyframes fadeInDown{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
-/* ── IMPROVED NAV ── */
-.nav-logo-wrap{display:flex;align-items:center;gap:6px}
-.nav-logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--ac),var(--tl));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+/* PUBLISH BLOCK */
+.publish-block{padding:14px;border-radius:var(--rs);border:1px solid rgba(124,92,252,.3);background:linear-gradient(135deg,rgba(124,92,252,.06),rgba(6,214,160,.04));margin-bottom:14px}
+.publish-status{font-size:11px;color:var(--tx3);margin-top:7px;line-height:1.55}
 
-/* ── GLASS CARDS for modals ── */
-.modal{backdrop-filter:blur(10px)}
-
-/* ── IMPROVED STATS ── */
-.stats{position:relative;overflow:hidden}
-.stats::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac),var(--tl),var(--ac));opacity:.5}
-
-/* ── LINK CARD IMPROVEMENTS ── */
-.lcard{border-left:3px solid transparent}
-.lcard.pnd{border-left-color:var(--gd)}
-.lcard:hover{border-left-color:var(--ac)}
-
-/* ── IMPROVED COVER HOVER ── */
-.cover{transition:filter .3s}
-.cover:hover{filter:brightness(1.05)}
-
-/* ── SECTION DIVIDER ── */
-.sec-divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px}
-.sec-divider-line{flex:1;height:1px;background:var(--bd)}
-.sec-divider-txt{font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
-
-/* ── IMPROVED ADMIN ROW ── */
-#adminRow{position:relative}
-#adminRow::before{content:'👑 Admin Controls';position:absolute;top:-18px;left:0;font-size:10px;color:var(--gd);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-
-/* ── PROFILE HOVER EDIT HINT ── */
-.edit-hint{
-  position:absolute;bottom:0;left:0;right:0;
-  background:rgba(124,92,252,.85);color:#fff;
-  font-size:11px;font-weight:600;text-align:center;
-  padding:5px;transform:translateY(100%);transition:transform .2s;
-  display:none;
-}
-.admin-mode .pname-wrap:hover .edit-hint{transform:translateY(0)}
-
-/* ── IMPROVED TOOLTIP ── */
-.hprev{transition:opacity .15s,transform .1s}
-.hprev.show{opacity:1;transform:scale(1)}
-.hprev:not(.show){transform:scale(.96)}
-
-/* ── PING BADGE ── */
-.ping-badge{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:16px;height:16px;border-radius:8px;
-  background:var(--rd);color:#fff;font-size:9px;font-weight:700;
-  margin-left:4px;padding:0 4px;vertical-align:middle;
-  animation:pingPop .4s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes pingPop{from{transform:scale(0)}to{transform:scale(1)}}
-
-/* ── IMPROVED BUTTONS ── */
-.btn{position:relative;overflow:hidden}
-.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .2s}
-.btn:active::after{background:rgba(255,255,255,.1)}
-
-/* ── FLOATING SAVE BADGE POSITION ── */
-body::before{content:'';position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0);z-index:8999}
-
-/* ── IMPROVED MOBILE ── */
-@media(max-width:420px){
-  .login-card{padding:28px 20px;border-radius:16px}
-  .ltitle{font-size:20px}
-  .admin-toolbar{bottom:72px;padding:5px 8px;gap:3px}
-  .atb{padding:4px 7px;font-size:11px}
+/* ── MOBILE OPTIMIZATIONS ── */
+@media(max-width:480px){
+  .app{padding:0 12px 90px}
+  .nav-logo{font-size:15px}
+  .nav-cnt{font-size:9px;min-width:16px;height:16px}
+  .ib{width:32px;height:32px;font-size:14px}
+  .nb{padding:6px 10px;font-size:12px}
+  .admin-badge{padding:2px 7px;font-size:10px}
+  .hero{padding:22px 0 12px}
+  .cover{height:140px}
+  .av-wrap{width:78px;height:78px;margin:-39px auto 0}
+  .av{width:78px;height:78px;font-size:28px}
+  .pname{font-size:22px}
+  .phandle{font-size:12px}
+  .pbio{font-size:12px}
+  .pmeta{gap:10px}
+  .pmeta span{font-size:11px}
+  .snum{font-size:16px}
+  .slbl{font-size:8px}
+  .sitem{padding:10px 2px}
+  .abtn{font-size:11px;padding:9px 6px;min-width:60px;gap:3px}
+  .arow{gap:5px}
+  .spbtn{padding:7px 10px;font-size:11px}
   .share-bar{gap:5px}
-  .spbtn{padding:6px 10px;font-size:11px}
+  .spotlight-title{font-size:17px}
+  .spotlight-icon{font-size:36px}
+  .spotlight-body{padding:14px 12px}
+  .sec-ttl{font-size:12px}
+  .si{font-size:16px;padding:11px 14px 11px 40px}
+  .ctab{padding:6px 11px;font-size:11px}
+  .lcard{padding:11px 12px;gap:10px}
+  .lico{width:36px;height:36px;font-size:17px}
+  .ltitle{font-size:13px}
+  .lurl,.ldesc{font-size:10px}
+  .cpbtn,.mbtn{width:28px;height:28px}
+  .la{width:24px;height:24px}
+  .post-title{font-size:13px}
+  .post-txt{font-size:12px}
+  .fr{grid-template-columns:1fr}
+  .agrid{grid-template-columns:1fr 1fr}
+  .acard{padding:11px}
+  .abig{font-size:22px}
+  .modal{padding:18px}
+  .mtitle{font-size:16px}
+  .fab{width:46px;height:46px;font-size:20px;bottom:20px;right:14px}
+  .scrtop{bottom:20px;left:14px;width:36px;height:36px}
+  .wa-float{bottom:74px;right:14px;width:42px;height:42px;font-size:18px}
+  .admin-toolbar{bottom:70px;padding:6px 10px;gap:4px}
+  .atb{padding:5px 8px;font-size:11px}
+  .access-card,.login-card{padding:28px 22px}
+  .access-title,.ltitle{font-size:20px}
+  .countdown-timer{gap:6px}
+  .ctd-num{font-size:22px;min-width:32px}
+  .ctd-sep{font-size:20px}
+  .footer{font-size:11px;padding:20px 0 6px}
+  .qsbar{margin-bottom:10px}
+  .qsnum{font-size:13px}
+  .qslbl{font-size:8px}
+  .tip-text{font-size:12px}
+  .note-txt{font-size:12px}
+  .evtitle{font-size:12px}
+  .evdesc{font-size:11px}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .sortbar{gap:4px}
+  .sbtn{padding:4px 9px;font-size:10px}
+  .sortlbl{font-size:10px}
 }
 
+@media(max-width:360px){
+  .app{padding:0 10px 80px}
+  .nav-logo{font-size:14px}
+  .pname{font-size:20px}
+  .abtn{min-width:54px;font-size:10px;padding:8px 4px}
+  .lcard{padding:10px 10px}
+  .lico{width:34px;height:34px;font-size:16px}
+  .stats{flex-wrap:nowrap}
+  .sitem{padding:8px 2px}
+  .snum{font-size:15px}
+  .ctd-num{font-size:20px;min-width:28px}
+}
+
+/* Landscape phone */
+@media(max-height:480px) and (orientation:landscape){
+  .access-card,.login-card{padding:20px;max-width:340px}
+  .access-logo,.llogo{font-size:36px;margin-bottom:6px}
+  .access-title,.ltitle{font-size:18px}
+  .access-sub,.lsub{font-size:12px;margin-bottom:14px}
+}
 
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px}
 .modal::-webkit-scrollbar{width:3px}
-@media(max-width:420px){.fr{grid-template-columns:1fr}.agrid{grid-template-columns:1fr}}
 
-/* ── FIREBASE AUTH SCREEN ── */
-.auth-scr{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0a0a14,#13112a 60%,#0a1a1a);backdrop-filter:blur(20px);overflow-y:auto}
-.auth-scr.hide{display:none}
-.auth-card{background:var(--bg2);border:1px solid var(--bd2);border-radius:22px;padding:38px 30px;width:100%;max-width:380px;box-shadow:0 28px 80px rgba(0,0,0,.7);position:relative;overflow:hidden}
-.auth-card::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,252,.28),transparent 70%);pointer-events:none}
-.auth-logo{font-size:54px;text-align:center;margin-bottom:12px;position:relative;z-index:1;animation:lLogoPop .6s cubic-bezier(.34,1.56,.64,1) both}
-.auth-title{font-size:23px;font-weight:800;text-align:center;margin-bottom:5px;font-family:'Space Grotesk',sans-serif;background:linear-gradient(135deg,var(--tx),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1}
-.auth-sub{color:var(--tx2);font-size:13px;text-align:center;margin-bottom:22px;position:relative;z-index:1}
-.auth-tabs{display:flex;gap:6px;margin-bottom:16px;background:var(--sf);border:1px solid var(--bd);border-radius:50px;padding:4px;position:relative;z-index:1}
-.auth-tab{flex:1;padding:8px;border-radius:50px;border:none;background:transparent;color:var(--tx2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
-.auth-tab.on{background:var(--ac);color:#fff;box-shadow:0 4px 14px rgba(124,92,252,.35)}
-.auth-field{margin-bottom:11px;position:relative;z-index:1}
-.auth-field .fi{padding-left:42px}
-.auth-field .l-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none}
-.auth-err{color:var(--rd);font-size:12px;margin:8px 0;padding:9px 12px;background:#ef444415;border-radius:9px;border:1px solid #ef444430;display:none;position:relative;z-index:1}
-.auth-err.show{display:block}
-.auth-info{font-size:11px;color:var(--tx3);margin-top:10px;text-align:center;position:relative;z-index:1;line-height:1.55}
-.auth-loading{position:fixed;inset:0;z-index:9600;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--tx2);font-size:14px}
-.auth-loading.hide{display:none}
-.auth-spin{width:36px;height:36px;border:3px solid var(--bd2);border-top-color:var(--ac);border-radius:50%;animation:authSpin .8s linear infinite}
-@keyframes authSpin{to{transform:rotate(360deg)}}
-.nav-user{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;max-width:170px}
-.nav-user .nu-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--ac),var(--tl));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
-.nav-user .nu-nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.nav-signout{padding:7px 12px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;font-family:inherit}
-.nav-signout:hover{background:#ef444415;border-color:#ef444430;color:var(--rd)}
-
-/* ── VIEWER MODE BANNER ── */
-.viewer-banner{display:none;align-items:center;justify-content:center;gap:10px;padding:7px 14px;background:linear-gradient(135deg,rgba(124,92,252,.12),rgba(6,214,160,.08));border-bottom:1px solid var(--bd);font-size:12px;color:var(--tx2);text-align:center;flex-wrap:wrap}
-body.viewer-mode .viewer-banner{display:flex}
-body.admin-page .viewer-banner{display:none}
-.viewer-banner .vb-txt{color:var(--tx2)}
-.viewer-banner .vb-link{color:var(--ac2);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--ac2);padding-bottom:1px}
-.viewer-banner .vb-link:hover{color:var(--ac);border-color:var(--ac)}
-
-/* Hide admin-only nav elements in viewer mode */
-body.viewer-mode .nav-signout{display:none!important}
-body.viewer-mode .nav-user{display:none!important}
-body.viewer-mode #adminBtn{display:none!important}
-body.viewer-mode .fab{display:none!important}
-body.viewer-mode .admin-toolbar{display:none!important}
-body.viewer-mode #adminRow{display:none!important}
-body.viewer-mode .qsbar{display:none!important}
-body.viewer-mode .prog-wrap{display:none!important}
-
-/* Show only in admin page (signed in) */
-body.admin-page .nav-view-admin{display:none!important}
-.nav-view-admin{padding:7px 12px;border-radius:50px;border:1px solid var(--bd2);background:var(--sf);color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;text-decoration:none;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
-.nav-view-admin:hover{background:var(--ac);border-color:var(--ac);color:#fff}
-
-/* Publish banner inside settings */
-.publish-block{padding:14px;border-radius:var(--rs);border:1px solid rgba(124,92,252,.3);background:linear-gradient(135deg,rgba(124,92,252,.06),rgba(6,214,160,.04));margin-bottom:14px}
-.publish-status{font-size:11px;color:var(--tx3);margin-top:7px;line-height:1.55}
+/* Hide app until access granted */
+body.locked .app,body.locked .fab,body.locked .scrtop,body.locked .wa-float,body.locked .admin-toolbar,body.locked .toast{display:none!important}
 </style>
 </head>
-<body>
+<body class="locked">
 
-<!-- FIREBASE AUTH SCREEN (shown until user signs in) -->
-<div class="auth-scr" id="authScr">
-  <div class="auth-card">
-    <div class="auth-logo">⚡</div>
-    <div class="auth-title">VIKESH</div>
-    <div class="auth-sub">Your personal links dashboard</div>
-    <div class="auth-tabs">
-      <button class="auth-tab on" id="authTabIn" onclick="authMode('signin')">Sign In</button>
-      <button class="auth-tab" id="authTabUp" onclick="authMode('signup')">Sign Up</button>
-    </div>
-
-    <div class="auth-field" id="authNameWrap" style="display:none">
-      <span class="l-ico">👤</span>
-      <input id="authName" class="fi" type="text" placeholder="Display name (e.g. VIKESH)" autocomplete="name">
-    </div>
-    <div class="auth-field">
-      <span class="l-ico">✉️</span>
-      <input id="authEmail" class="fi" type="email" placeholder="Email address" autocomplete="email">
-    </div>
-    <div class="auth-field">
+<!-- ACCESS CODE SCREEN -->
+<div class="access-scr" id="accessScr">
+  <div class="access-card">
+    <div class="access-logo">⚡</div>
+    <div class="access-title">VIKESH</div>
+    <div class="access-sub">Enter access code to continue</div>
+    <div class="access-field">
       <span class="l-ico">🔑</span>
-      <input id="authPass" class="fi" type="password" placeholder="Password (min 6 chars)" autocomplete="current-password">
+      <input id="accessInput" class="fi" type="password" placeholder="Access code" autocomplete="off" autocapitalize="off" spellcheck="false">
     </div>
-    <div class="auth-field" id="authPass2Wrap" style="display:none">
-      <span class="l-ico">🔐</span>
-      <input id="authPass2" class="fi" type="password" placeholder="Confirm password" autocomplete="new-password">
-    </div>
-
-    <div class="auth-err" id="authErr"></div>
-    <button class="btn bp" id="authSubmit" onclick="authSubmit()" style="width:100%;padding:13px;margin-top:4px">Sign In →</button>
-    <div class="auth-info" id="authInfo">
-      Sign in with your account to manage your links, posts and profile.
-    </div>
+    <div class="access-err" id="accessErr">❌ Wrong access code. Try again.</div>
+    <button class="btn bp" id="accessSubmit" onclick="submitAccess()" style="width:100%;padding:13px;margin-top:4px">Unlock →</button>
+    <div class="access-info" id="accessInfo">Enter the access code provided by the owner to view this page.</div>
+    <button class="access-admin-link" onclick="openAdminLogin()">🛡️ Admin login</button>
   </div>
 </div>
 
-<!-- AUTH LOADING -->
-<div class="auth-loading" id="authLoading">
-  <div class="auth-spin"></div>
-  <div id="authLoadingTxt">Loading…</div>
-</div>
-
-<!-- LOGIN -->
+<!-- ADMIN LOGIN -->
 <div class="lscr" id="lscr">
   <div class="login-card">
-    <div class="llogo">⚡</div>
+    <div class="llogo">👑</div>
     <div class="ltitle">Admin Access</div>
-    <div class="lsub">Sign in to manage your links</div>
+    <div class="lsub">Enter admin password to manage</div>
     <div class="login-input-wrap">
       <span class="l-ico">🔑</span>
-      <input id="lpw" class="fi" type="password" placeholder="Enter admin password" autocomplete="current-password" style="width:100%">
+      <input id="lpw" class="fi" type="password" placeholder="Admin password" autocomplete="current-password" style="width:100%">
     </div>
     <div class="lerr" id="lerr">❌ Wrong password. Try again.</div>
     <button class="btn bp" onclick="doLogin()" style="width:100%;margin-top:4px;padding:13px">Sign In →</button>
     <div class="login-divider"></div>
     <button class="btn bds" onclick="closeLscr()" style="width:100%;padding:11px">Cancel</button>
-    <div class="login-hint">Default password: <strong>vikesh2024</strong> — change in Settings</div>
   </div>
 </div>
 
@@ -743,28 +656,16 @@ body.admin-page .nav-view-admin{display:none!important}
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
-    <div class="nav-logo-icon">⚡</div>
+    <div class="nav-logo-icon" style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--ac),var(--tl));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">⚡</div>
     <span class="nav-logo">VIKESH</span>
     <span class="nav-cnt" id="navCnt">0</span>
     <div class="admin-badge">👑 ADMIN</div>
   </div>
   <div class="nav-right">
     <button class="ib" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    <a class="nav-view-admin" id="viewAdminLink" href="?admin=1" title="Open admin dashboard">🛡️ Admin</a>
-    <div class="nav-user" id="navUser" style="display:none">
-      <div class="nu-av" id="nuAv">V</div>
-      <span class="nu-nm" id="nuNm">User</span>
-    </div>
-    <button class="nav-signout" id="signoutBtn" onclick="doSignOut()" style="display:none">⏻ Sign Out</button>
-    <button class="nb" id="adminBtn" onclick="onAdminClick()">🛡️ Admin</button>
+    <button class="ib admin-ib" id="adminBtn" onclick="onAdminClick()" title="Admin">🛡️</button>
   </div>
 </nav>
-
-<!-- VIEWER MODE BANNER (shown only on viewer page) -->
-<div class="viewer-banner">
-  <span class="vb-txt">👁️ You are viewing the public page</span>
-  <a class="vb-link" id="vbLink" href="?admin=1">🛡️ Go to Admin Dashboard →</a>
-</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -807,7 +708,7 @@ body.admin-page .nav-view-admin{display:none!important}
   </div>
 </div>
 
-<!-- SHARE BAR (everyone) -->
+<!-- SHARE BAR -->
 <div class="share-bar">
   <a class="spbtn wa" id="shareWa" href="#" target="_blank" rel="noopener">💬 WhatsApp</a>
   <a class="spbtn tg" id="shareTg" href="#" target="_blank" rel="noopener">✈️ Telegram</a>
@@ -828,7 +729,7 @@ body.admin-page .nav-view-admin{display:none!important}
   <div class="ticker-track"><div class="ticker-inner" id="tickerInner"></div></div>
 </div>
 
-<!-- ACTION ROW (everyone) -->
+<!-- ACTION ROW -->
 <div class="arow">
   <button class="abtn" onclick="openQR()">📱 QR Code</button>
   <button class="abtn" onclick="shareProfile()">🔗 Share</button>
@@ -989,7 +890,7 @@ body.admin-page .nav-view-admin{display:none!important}
   <span id="ftClicks">0</span> total clicks &nbsp;•&nbsp; <span id="ftLinks">0</span> active links &nbsp;•&nbsp; <span id="ftPosts">0</span> posts
 </div>
 
-</div><!-- /app -->
+</div>
 
 <!-- ADMIN FLOATING TOOLBAR -->
 <div class="admin-toolbar" id="adminToolbar">
@@ -1081,7 +982,6 @@ body.admin-page .nav-view-admin{display:none!important}
   </div>
 </div>
 
-<!-- ANALYTICS — open to ALL visitors -->
 <div class="ov" id="mAnalytics">
   <div class="modal">
     <div class="mdrag"></div>
@@ -1190,17 +1090,19 @@ body.admin-page .nav-view-admin{display:none!important}
       <div class="stab" onclick="switchStab(this,'s-dng')">⚠️ Danger</div>
     </div>
     <div class="span on" id="s-sec">
-      <div class="fg"><label class="fl">Current Password</label><input class="fi" id="pwC" type="password"></div>
-      <div class="fg"><label class="fl">New Password</label><input class="fi" id="pwN" type="password" placeholder="Min 4 characters"></div>
-      <div class="fg"><label class="fl">Confirm Password</label><input class="fi" id="pwCf" type="password"></div>
-      <button class="btn bp" onclick="changePw()" style="margin-bottom:14px">🔑 Update Password</button>
+      <div class="fg"><label class="fl">User Access Code (visitors need this)</label><input class="fi" id="pwAccess" placeholder="Access code for users"></div>
+      <button class="btn bp" onclick="changeAccessCode()" style="margin-bottom:14px">🔑 Update Access Code</button>
+      <div class="fg"><label class="fl">Current Admin Password</label><input class="fi" id="pwC" type="password"></div>
+      <div class="fg"><label class="fl">New Admin Password</label><input class="fi" id="pwN" type="password" placeholder="Min 4 characters"></div>
+      <div class="fg"><label class="fl">Confirm Admin Password</label><input class="fi" id="pwCf" type="password"></div>
+      <button class="btn bp" onclick="changePw()" style="margin-bottom:14px">🔑 Update Admin Password</button>
       <div style="padding:11px;background:var(--sf);border-radius:var(--rs);border:1px solid var(--bd);margin-bottom:11px">
         <div class="fl" style="display:block;margin-bottom:4px">Your Profile URL</div>
         <div style="font-size:12px;color:var(--ac2);word-break:break-all" id="settUrl"></div>
       </div>
       <div class="publish-block">
-        <div class="fl" style="display:block;margin-bottom:5px">🔧 Firebase Connection Diagnostics</div>
-        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Verify Firebase Auth + Firestore are reachable and rules allow reads/writes.</div>
+        <div class="fl" style="display:block;margin-bottom:5px">🔌 Firebase Connection</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Firebase Firestore is connected for cloud sync.</div>
         <button class="btn bp" onclick="runDiagnostics(this)" style="margin-bottom:10px">🔌 Test Connection</button>
         <div id="diagOut" style="font-size:11px;color:var(--tx2);line-height:1.7;font-family:monospace;background:var(--bg3);padding:9px 11px;border-radius:var(--rs);border:1px solid var(--bd);display:none"></div>
       </div>
@@ -1208,10 +1110,9 @@ body.admin-page .nav-view-admin{display:none!important}
     <div class="span" id="s-data">
       <div class="publish-block">
         <div class="fl" style="display:block;margin-bottom:5px">🌐 Publish to Public Page</div>
-        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Push your current links, posts, profile &amp; events to the public viewer page. Anyone with the URL will see this snapshot.</div>
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:9px">Push your current links, posts, profile &amp; events to the public page. Anyone with the access code will see this snapshot.</div>
         <div style="display:flex;gap:7px;flex-wrap:wrap">
           <button class="btn bp" onclick="publishToPublic(this)" style="flex:1;min-width:120px">🚀 Publish Now</button>
-          <button class="btn bds" onclick="openViewerPage()" style="flex:1;min-width:120px">👁️ Preview as Viewer</button>
         </div>
         <div class="publish-status" id="publishStatus">Loading publish status…</div>
       </div>
@@ -1305,7 +1206,7 @@ body.admin-page .nav-view-admin{display:none!important}
 <script>
 // ═══════════════ HELPERS ═══════════════
 const G=id=>document.getElementById(id);
-const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 function fmt(n){return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1000?(n/1000).toFixed(1)+'K':String(n)}
 function timeAgo(ts){const d=Math.floor((Date.now()-ts)/1000);if(d<60)return'Just now';if(d<3600)return Math.floor(d/60)+'m ago';if(d<86400)return Math.floor(d/3600)+'h ago';if(d<604800)return Math.floor(d/86400)+'d ago';return new Date(ts).toLocaleDateString()}
 let _tt;
@@ -1342,7 +1243,9 @@ const DEF={
   note:{title:'📌 Note',text:'',visible:false},
   announce:{title:'',text:'',visible:false,waLink:''},
   analytics:{visitors:0,clicks:0},
-  settings:{theme:'dark',accent:'#7c5cfc',grad:'purple',adminPw:'vikesh2024'}
+  // Default admin password is HEMUVICKEY@8333 (as set by owner)
+  // Default access code for users
+  settings:{theme:'dark',accent:'#7c5cfc',grad:'purple',adminPw:'HEMUVICKEY@8333',accessCode:'VIKESH2024'}
 };
 
 // ═══════════════ STATE ═══════════════
@@ -1357,9 +1260,16 @@ const S={
   settings:JSON.parse(JSON.stringify(DEF.settings)),
   adminMode:false
 };
+const SX = {
+  music:{title:'',artist:'',icon:'🎵',visible:false},
+  countdown:{label:'🔥 Event Countdown',target:'',visible:false},
+  tips:{list:[],visible:false},
+  gallery:{images:[],visible:false},
+  onlineStatus:{text:'Online Now',visible:false}
+};
 const EMOJIS=['🔗','📸','▶️','💬','📱','📘','🐦','📊','📉','💹','💰','🏆','🌐','✉️','📞','💼','⭐','🎯','🚀','💡','🛒','🎵','🎨','📖','🤝','🔑','💎','🎁','🏅','⚡','🌟','🔥','💻','📲','🎮','🌍','🏠','🚗','🎓','🧠','💸','🏦','📡','🛡️','⚙️','📢','🎤','🔔','📌','🏋️','🎥'];
 const ACCENTS=['#7c5cfc','#06d6a0','#f472b6','#f59e0b','#3b82f6','#ef4444','#10b981','#8b5cf6','#ec4899','#14b8a6'];
-const LINK_COLORS=['','#7c5cfc','#06d6a0','#f59e0b','#ef4444','#3b82f6','#f472b6','#10b981'];
+const LCOLS=['','#7c5cfc','#06d6a0','#f59e0b','#ef4444','#3b82f6','#f472b6','#10b981'];
 const GRADS={
   purple:'radial-gradient(ellipse 80% 50% at 50% -20%,rgba(124,92,252,.18) 0,transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(6,214,160,.06) 0,transparent 60%)',
   ocean:'radial-gradient(ellipse 80% 50% at 50% -20%,rgba(6,214,160,.18) 0,transparent 70%),radial-gradient(ellipse 50% 40% at 20% 80%,rgba(59,130,246,.1) 0,transparent 60%)',
@@ -1369,14 +1279,13 @@ const GRADS={
   galaxy:'radial-gradient(ellipse 80% 50% at 50% -20%,rgba(139,92,246,.2) 0,transparent 70%),radial-gradient(ellipse 60% 60% at 80% 80%,rgba(236,72,153,.1) 0,transparent 60%)'
 };
 let db=null,activeCat='all',sortMode='def',viewMode='list',editLinkId=null,editPostId=null,editEvId=null,selEmoji='🔗',selColor='',ctxMenu=null,dragSrc=null,hpTmr=null,postImgB64='';
+let fbApp=null, fbDb=null;
 
-// ═══════════════ LOCAL STORAGE AUTO-SAVE ═══════════════
-// LocalStorage cache key — now per-user so different accounts don't share cached data
-function lsKey(){return 'vk_localdata_'+(currentUser?.uid||'anon');}
-// Backward-compat constant (used by older code paths)
 const LS_KEY = 'vk_localdata';
-let _saveDotTimer;
+const ACCESS_SESSION_KEY = 'vk_access_granted';
 
+// ═══════════════ LOCAL STORAGE ═══════════════
+let _saveDotTimer;
 function showSaveDot(saving=true){
   const dot=G('saveDot');if(!dot)return;
   dot.classList.add('show');
@@ -1395,20 +1304,15 @@ function saveToLocal(){
       analytics:S.analytics,settings:S.settings,
       music:SX.music,countdown:SX.countdown,tips:SX.tips,
       gallery:SX.gallery,onlineStatus:SX.onlineStatus,
-      savedAt:Date.now(),
-      uid:currentUser?.uid||null
+      savedAt:Date.now()
     };
-    localStorage.setItem(lsKey(),JSON.stringify(data));
-    // Also write to the legacy key for backward compat with old boot code
     localStorage.setItem(LS_KEY,JSON.stringify(data));
   }catch(e){console.log('LocalStorage save error',e)}
 }
 
 function loadFromLocal(){
   try{
-    // Prefer the user-specific key; fall back to legacy key
-    let raw=localStorage.getItem(lsKey());
-    if(!raw && lsKey()!==LS_KEY)raw=localStorage.getItem(LS_KEY);
+    const raw=localStorage.getItem(LS_KEY);
     if(!raw)return false;
     const data=JSON.parse(raw);
     if(data.profile)Object.assign(S.profile,data.profile);
@@ -1430,200 +1334,59 @@ function loadFromLocal(){
 }
 
 // ═══════════════ FIREBASE INIT ═══════════════
+// Firebase SDK connected as provided by owner (Firestore for data sync).
+// No Firebase Authentication — we use access code (users) + admin password (admin).
 const firebaseConfig = {
   apiKey: "AIzaSyBj409DSmR7llJdAjPzkbrz3dv4epOg2D0",
   authDomain: "vikesh-live-links-project.firebaseapp.com",
+  databaseURL: "https://vikesh-live-links-project-default-rtdb.firebaseio.com",
   projectId: "vikesh-live-links-project",
   storageBucket: "vikesh-live-links-project.firebasestorage.app",
   messagingSenderId: "212069524539",
   appId: "1:212069524539:web:5646c4ea2042b87859a81e"
 };
-let fbApp=null, fbAuth=null, fbDb=null, currentUser=null;
 
-// Map legacy path → top-level field name on the user doc
-const PATH_MAP={
-  'app/profile':'profile',
-  'app/categories':'categories',
-  'app/links':'links',
-  'app/posts':'posts',
-  'app/events':'events',
-  'app/note':'note',
-  'app/announce':'announce',
-  'app/analytics':'analytics',
-  'app/settings':'settings',
-  'app/music':'music',
-  'app/countdown':'countdown',
-  'app/tips':'tips',
-  'app/gallery':'gallery',
-  'app/online':'onlineStatus'
-};
-function fbUserDoc(){
-  if(!currentUser)throw new Error('Not signed in');
-  return fbDb.collection('users').doc(currentUser.uid);
-}
-
-// ═══════════════ DB ═══════════════
-async function initDB(){
-  // Show cached local data immediately (instant UX while Firebase loads)
-  loadFromLocal();
-  renderPage();
-
-  // If signed in, load cloud data
-  if(currentUser){ await loadDB(); }
-  trackVisit();
-  renderPage();
-}
-
-async function loadDB(){
-  if(!currentUser)return;
+function initFirebase(){
   try{
-    const snap=await fbUserDoc().get();
-    if(!snap.exists){
-      // New user — reset S to clean defaults so we don't write stale cached data
-      resetStateToDefaults();
-      // If they just set a display name during sign-up, preserve it
-      const uname=currentUser.displayName||'';
-      if(uname)S.profile.name=uname.toUpperCase();
-      // Persist defaults to Firestore
-      await initUserData();
-      saveToLocal();
-      return;
+    if(typeof firebase==='undefined'){
+      console.warn('Firebase SDK not loaded');
+      return false;
     }
-    const d=snap.data()||{};
-    if(d.profile)Object.assign(S.profile,d.profile);
-    if(d.categories?.list)S.categories=d.categories.list;
-    if(d.links?.list)S.links=d.links.list;
-    if(d.posts?.list)S.posts=d.posts.list;
-    if(d.events?.list)S.events=d.events.list;
-    if(d.note)Object.assign(S.note,d.note);
-    if(d.announce)Object.assign(S.announce,d.announce);
-    if(d.analytics){S.analytics.visitors=d.analytics.visitors||0;S.analytics.clicks=d.analytics.clicks||0;}
-    if(d.settings)Object.assign(S.settings,d.settings);
-    if(d.music)Object.assign(SX.music,d.music);
-    if(d.countdown)Object.assign(SX.countdown,d.countdown);
-    if(d.tips)Object.assign(SX.tips,d.tips);
-    if(d.gallery)Object.assign(SX.gallery,d.gallery);
-    if(d.onlineStatus)Object.assign(SX.onlineStatus,d.onlineStatus);
-    saveToLocal();
+    fbApp=firebase.initializeApp(firebaseConfig);
+    fbDb=firebase.firestore();
+    return true;
   }catch(e){
-    console.warn('loadDB error',e);
-    toast('⚠️ Could not load cloud data: '+friendlyFbErr(e)+' — showing local cache');
+    console.warn('Firebase init error',e);
+    return false;
   }
 }
 
-// Reset in-memory state to factory defaults (used before initUserData for new users)
-function resetStateToDefaults(){
-  Object.assign(S.profile,JSON.parse(JSON.stringify(DEF.profile)));
-  S.categories=JSON.parse(JSON.stringify(DEF.categories));
-  S.links=JSON.parse(JSON.stringify(DEF.links));
-  S.posts=[];S.events=[];
-  S.note={title:'📌 Note',text:'',visible:false};
-  S.announce={title:'',text:'',visible:false,waLink:''};
-  S.analytics={visitors:0,clicks:0};
-  Object.assign(S.settings,JSON.parse(JSON.stringify(DEF.settings)));
-  SX.music={title:'',artist:'',icon:'🎵',visible:false};
-  SX.countdown={label:'🔥 Event Countdown',target:'',visible:false};
-  SX.tips={list:[],visible:false};
-  SX.gallery={images:[],visible:false};
-  SX.onlineStatus={text:'Online Now',visible:false};
+// Save to Firestore public/site (no auth required, public rules)
+async function dbSaveCloud(field,data){
+  if(!fbDb)return;
+  try{
+    const payload={[field]:data,lastSavedAt:Date.now()};
+    await fbDb.collection('public').doc('site').set(payload,{merge:true});
+  }catch(e){
+    console.warn('Cloud save error (non-fatal, local still works)',e);
+  }
 }
 
-// Friendly Firebase error messages for toast feedback
-function friendlyFbErr(e){
-  const code=e?.code||'';
-  const msg=e?.message||String(e);
-  if(code==='permission-denied'||/permission-denied/i.test(msg))return 'Firestore rules blocked this. Check your security rules.';
-  if(code==='unavailable'||/unavailable/i.test(msg))return 'Firestore unavailable. Check your connection.';
-  if(code==='not-found'||/not-found/i.test(msg))return 'Document not found.';
-  if(code==='failed-precondition'||/failed-precondition/i.test(msg))return 'Firestore needs an index. See console.';
-  if(code==='unauthenticated'||/unauthenticated/i.test(msg))return 'Not signed in.';
-  return msg.slice(0,80);
-}
-
-// Save a single field to the user's Firestore doc
 async function dbSave(p,d){
   showSaveDot(true);
-  // Always save to localStorage immediately (offline-friendly)
   saveToLocal();
-  // Persist to Firestore per-user
-  if(currentUser){
-    const field=PATH_MAP[p];
-    if(field){
-      try{
-        await fbUserDoc().set({[field]:d, lastSavedAt:Date.now(), email:currentUser.email, displayName:currentUser.displayName||''},{merge:true});
-      }catch(e){
-        console.warn('dbSave error',e,p);
-        toast('⚠️ Save failed: '+friendlyFbErr(e));
-      }
-    }
-  }
+  // Map legacy path → field name
+  const PATH_MAP={
+    'app/profile':'profile','app/categories':'categories','app/links':'links',
+    'app/posts':'posts','app/events':'events','app/note':'note','app/announce':'announce',
+    'app/analytics':'analytics','app/settings':'settings','app/music':'music',
+    'app/countdown':'countdown','app/tips':'tips','app/gallery':'gallery','app/online':'onlineStatus'
+  };
+  const field=PATH_MAP[p];
+  if(field){await dbSaveCloud(field,d);}
   showSaveDot(false);
 }
 
-// One-time init for brand new users
-async function initUserData(){
-  const batch={
-    profile:S.profile,
-    categories:{list:S.categories},
-    links:{list:S.links},
-    posts:{list:S.posts},
-    events:{list:S.events},
-    note:S.note,
-    announce:S.announce,
-    analytics:S.analytics,
-    settings:S.settings,
-    music:SX.music,
-    countdown:SX.countdown,
-    tips:SX.tips,
-    gallery:SX.gallery,
-    onlineStatus:SX.onlineStatus,
-    email:currentUser.email||'',
-    displayName:currentUser.displayName||'',
-    createdAt:Date.now()
-  };
-  try{
-    await fbUserDoc().set(batch);
-    toast('✅ Account created — welcome!');
-  }catch(e){
-    console.warn('initUserData error',e);
-    toast('⚠️ Could not save initial data: '+friendlyFbErr(e)+' — your edits are cached locally.');
-  }
-}
-
-async function trackVisit(){
-  const k='vk_fin_'+(currentUser?.uid||location.hostname);
-  if(!localStorage.getItem(k)){localStorage.setItem(k,'1');S.analytics.visitors=(S.analytics.visitors||0)+1;await dbSave('app/analytics',S.analytics);}
-}
-async function trackClick(id){
-  const lnk=S.links.find(l=>l.id===id);if(!lnk)return;
-  lnk.clicks=(lnk.clicks||0)+1;S.analytics.clicks=(S.analytics.clicks||0)+1;
-  await dbSave('app/links',{list:S.links});await dbSave('app/analytics',S.analytics);
-  renderStats();renderLinks();updateQsBar();renderFooter();
-  addToHistory(lnk);
-}
-
-// ═══════════════ PAGE MODE (viewer vs admin) ═══════════════
-// Default URL  → viewer page (public, read-only)
-// ?admin=1     → admin page (requires Firebase sign-in)
-let pageMode='viewer';  // 'viewer' | 'admin'
-function detectPageMode(){
-  const p=new URLSearchParams(location.search);
-  pageMode=(p.get('admin')==='1'||p.get('mode')==='admin')?'admin':'viewer';
-  document.body.classList.toggle('viewer-mode',pageMode==='viewer');
-  document.body.classList.toggle('admin-page',pageMode==='admin');
-  return pageMode;
-}
-function openViewerPage(){
-  const url=location.pathname.split('/').pop()||'vikesh-firebase.html';
-  window.open(url,'_blank','noopener');
-}
-function openAdminPage(){
-  const url=location.pathname.split('/').pop()||'vikesh-firebase.html';
-  location.href=url+'?admin=1';
-}
-
-// ═══════════════ PUBLIC DATA (viewer page reads this) ═══════════════
-// Single public doc at `public/site` — readable by anyone, writable by signed-in users.
 async function loadPublicData(){
   if(!fbDb)return false;
   try{
@@ -1649,13 +1412,11 @@ async function loadPublicData(){
     return true;
   }catch(e){
     console.warn('loadPublicData error',e);
-    toast('⚠️ Could not load public page: '+friendlyFbErr(e));
     return false;
   }
 }
 
 async function publishToPublic(btn){
-  if(!currentUser){toast('Sign in to publish');return;}
   if(!fbDb){toast('Database not connected');return;}
   if(btn){btn.disabled=true;btn.textContent='Publishing…';}
   const payload={
@@ -1673,9 +1434,6 @@ async function publishToPublic(btn){
     tips:SX.tips,
     gallery:SX.gallery,
     onlineStatus:SX.onlineStatus,
-    publishedBy:currentUser.uid,
-    publishedByEmail:currentUser.email||'',
-    publishedByName:currentUser.displayName||'',
     publishedAt:Date.now()
   };
   try{
@@ -1684,7 +1442,7 @@ async function publishToPublic(btn){
     updatePublishStatus();
   }catch(e){
     console.error('publish error',e);
-    toast('Publish failed: '+friendlyFbErr(e));
+    toast('Publish failed — check Firestore rules');
   }finally{
     if(btn){btn.disabled=false;btn.textContent='🚀 Publish Now';}
   }
@@ -1694,196 +1452,170 @@ async function updatePublishStatus(){
   const el=G('publishStatus');if(!el||!fbDb)return;
   try{
     const snap=await fbDb.collection('public').doc('site').get();
-    if(!snap.exists){el.textContent='⚪ Not published yet. Click “Publish Now” to make your page visible to viewers.';return;}
+    if(!snap.exists){el.textContent='⚪ Not published yet. Click "Publish Now" to make your page visible to viewers.';return;}
     const d=snap.data()||{};
     const when=d.publishedAt?new Date(d.publishedAt).toLocaleString():'unknown';
-    const who=d.publishedByName||d.publishedByEmail||'unknown';
-    el.textContent='✅ Last published: '+when+' by '+who;
-  }catch(e){el.textContent='Could not load publish status: '+friendlyFbErr(e);}
+    el.textContent='✅ Last published: '+when;
+  }catch(e){el.textContent='Could not load publish status.';}
 }
 
-// ═══════════════ FIREBASE DIAGNOSTICS ═══════════════
 async function runDiagnostics(btn){
   const out=G('diagOut');
   if(btn){btn.disabled=true;btn.textContent='Testing…';}
   out.style.display='block';
   const log=[];
   const add=(ok,msg)=>{log.push((ok?'✅':'❌')+' '+msg);out.textContent=log.join('\n');};
-
-  // 1. Firebase SDK loaded?
-  add(typeof firebase!=='undefined','Firebase SDK loaded');
-  if(typeof firebase==='undefined'){
-    add(false,'Firebase SDK scripts failed to load. Check your internet / CDN.');
-    if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
-    return;
-  }
-  // 2. App initialized?
+  add(typeof firebase!=='undefined'?false:true,'Firebase SDK loaded');
+  if(typeof firebase==='undefined'){if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}return;}
   add(!!fbApp,'Firebase app initialized');
-  // 3. Auth available?
-  add(!!fbAuth,'Firebase Auth available');
-  // 4. Firestore available?
   add(!!fbDb,'Firestore available');
-  if(!fbDb){
-    add(false,'Firestore not initialized. Enable Firestore in Firebase Console.');
-    if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
-    return;
-  }
-  // 5. Signed in?
-  add(!!currentUser,'Signed in as '+(currentUser?.email||'(not signed in)'));
-  if(!currentUser){
-    add(false,'Not signed in. Sign in to test per-user data reads/writes.');
-  }
-  // 6. Test public read
+  if(!fbDb){if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}return;}
   try{
     const snap=await fbDb.collection('public').doc('site').get();
-    add(true,'Public read OK (doc '+(snap.exists?'exists':'does not exist yet')+')');
+    add(true,'Public read OK ('+(snap.exists?'exists':'new')+')');
   }catch(e){
-    add(false,'Public read FAILED: '+friendlyFbErr(e));
-    add(false,'→ Add Firestore rule: match /public/{docId} { allow read: if true; }');
+    add(false,'Public read FAILED — set Firestore rule: match /public/{docId} { allow read, write: if true; }');
   }
-  // 7. Test user doc read
-  if(currentUser){
-    try{
-      const snap=await fbUserDoc().get();
-      add(true,'User doc read OK ('+(snap.exists?'exists':'new user')+')');
-    }catch(e){
-      add(false,'User doc read FAILED: '+friendlyFbErr(e));
-      add(false,'→ Add Firestore rule: match /users/{userId} { allow read, write: if request.auth.uid == userId; }');
-    }
-    // 8. Test user doc write
-    try{
-      await fbUserDoc().set({diagTestAt:Date.now()},{merge:true});
-      add(true,'User doc write OK — data will persist');
-    }catch(e){
-      add(false,'User doc write FAILED: '+friendlyFbErr(e));
-      add(false,'→ Check Firestore rules allow write for authenticated owner');
-    }
-  }
-  // 9. Project info
-  log.push('');
-  log.push('Project: '+(firebaseConfig.projectId||'unknown'));
-  log.push('Page mode: '+pageMode);
-  log.push('Local cache key: '+lsKey());
+  log.push('','Project: '+(firebaseConfig.projectId||'unknown'),'Admin password set: '+(S.settings.adminPw?'yes':'no'),'Access code set: '+(S.settings.accessCode?'yes':'no'));
   out.textContent=log.join('\n');
   if(btn){btn.disabled=false;btn.textContent='🔌 Test Connection';}
 }
 
-// ═══════════════ FIREBASE AUTH ═══════════════
-let authFormMode='signin';
-
-function authMode(mode){
-  authFormMode=mode;
-  G('authTabIn').classList.toggle('on',mode==='signin');
-  G('authTabUp').classList.toggle('on',mode==='signup');
-  G('authNameWrap').style.display=mode==='signup'?'block':'none';
-  G('authPass2Wrap').style.display=mode==='signup'?'block':'none';
-  G('authSubmit').textContent=mode==='signup'?'Create Account →':'Sign In →';
-  G('authInfo').textContent=mode==='signup'
-    ? 'Create your account. Your data is stored privately under your email.'
-    : 'Sign in with your account to manage your links, posts and profile.';
-  G('authErr').classList.remove('show');
+async function trackVisit(){
+  const k='vk_fin_'+location.hostname;
+  if(!localStorage.getItem(k)){localStorage.setItem(k,'1');S.analytics.visitors=(S.analytics.visitors||0)+1;await dbSave('app/analytics',S.analytics);}
+}
+async function trackClick(id){
+  const lnk=S.links.find(l=>l.id===id);if(!lnk)return;
+  lnk.clicks=(lnk.clicks||0)+1;S.analytics.clicks=(S.analytics.clicks||0)+1;
+  await dbSave('app/links',{list:S.links});await dbSave('app/analytics',S.analytics);
+  renderStats();renderLinks();updateQsBar();renderFooter();
+  addToHistory(lnk);
 }
 
-function authShowErr(msg){
-  const e=G('authErr');
-  e.textContent='❌ '+(msg||'Authentication error');
+// ═══════════════ ACCESS CODE / ADMIN LOGIN ═══════════════
+function isAccessGranted(){
+  return sessionStorage.getItem(ACCESS_SESSION_KEY)==='1';
+}
+function grantAccess(){
+  sessionStorage.setItem(ACCESS_SESSION_KEY,'1');
+  document.body.classList.remove('locked');
+  G('accessScr').classList.add('hide');
+  document.body.classList.add('access-granted');
+}
+function lockAccess(){
+  sessionStorage.removeItem(ACCESS_SESSION_KEY);
+  document.body.classList.add('locked');
+  document.body.classList.remove('access-granted');
+  G('accessScr').classList.remove('hide');
+  G('accessInput').value='';
+}
+
+function submitAccess(){
+  const v=G('accessInput').value.trim();
+  if(!v){accessShowErr('Please enter access code');return;}
+  if(v===S.settings.accessCode){
+    G('accessErr').classList.remove('show');
+    grantAccess();
+    trackVisit();
+    renderPage();
+    toast('Access granted ✓');
+  }else if(v===S.settings.adminPw){
+    // Allow admin password to also unlock + enable admin mode
+    G('accessErr').classList.remove('show');
+    grantAccess();
+    S.adminMode=true;
+    applyAdmin();
+    trackVisit();
+    renderPage();
+    toast('Welcome back, Admin! 👑');
+  }else{
+    accessShowErr('❌ Wrong access code. Try again.');
+    G('accessInput').value='';
+    G('accessInput').focus();
+    shakeCard(G('accessScr').querySelector('.access-card'));
+  }
+}
+function accessShowErr(msg){
+  const e=G('accessErr');
+  e.textContent=msg;
   e.classList.add('show');
 }
-
-function friendlyAuthErr(code){
-  const map={
-    'auth/invalid-email':'Please enter a valid email address.',
-    'auth/user-disabled':'This account has been disabled.',
-    'auth/user-not-found':'No account found with this email. Try Sign Up.',
-    'auth/wrong-password':'Incorrect password. Please try again.',
-    'auth/invalid-credential':'Email or password is incorrect.',
-    'auth/email-already-in-use':'An account with this email already exists. Try Sign In.',
-    'auth/weak-password':'Password is too weak. Use at least 6 characters.',
-    'auth/too-many-requests':'Too many attempts. Try again later.',
-    'auth/network-request-failed':'Network error. Check your connection and try again.',
-    'auth/operation-not-allowed':'Email/password sign-in is not enabled in your Firebase project. Enable it in Firebase Console → Authentication → Sign-in method.'
-  };
-  return map[code]||null;
+function shakeCard(card){
+  card?.animate([
+    {transform:'translateX(0)'},{transform:'translateX(-10px)'},
+    {transform:'translateX(10px)'},{transform:'translateX(-6px)'},
+    {transform:'translateX(6px)'},{transform:'translateX(0)'}
+  ],{duration:400,easing:'ease-out'});
 }
 
-async function authSubmit(){
-  const email=G('authEmail').value.trim();
-  const pass=G('authPass').value;
-  if(!email||!pass){authShowErr('Please enter email and password');return;}
-  G('authErr').classList.remove('show');
-  G('authSubmit').disabled=true;
-  G('authSubmit').textContent='Please wait…';
+function openAdminLogin(){
+  // From access screen, admin can directly login
+  G('accessScr').classList.add('hide');
+  const lscr=G('lscr');
+  lscr.classList.add('open');
+  G('lerr').style.display='none';
+  G('lpw').value='';
+  setTimeout(()=>G('lpw').focus(),150);
+}
 
-  try{
-    if(authFormMode==='signup'){
-      const pass2=G('authPass2').value;
-      if(pass!==pass2){authShowErr('Passwords do not match');resetAuthBtn();return;}
-      if(pass.length<6){authShowErr('Password must be at least 6 characters');resetAuthBtn();return;}
-      const name=G('authName').value.trim();
-      const cred=await fbAuth.createUserWithEmailAndPassword(email,pass);
-      if(name){try{await cred.user.updateProfile({displayName:name})}catch(e){}}
-      // Update profile name in state to match display name
-      if(name)S.profile.name=name.toUpperCase();
-      // Auth state observer will handle data init + show app
-    }else{
-      await fbAuth.signInWithEmailAndPassword(email,pass);
-    }
-  }catch(err){
-    console.warn('Auth error',err);
-    authShowErr(friendlyAuthErr(err.code)||err.message||'Authentication failed');
-    resetAuthBtn();
+function onAdminClick(){
+  if(S.adminMode){
+    S.adminMode=false;
+    applyAdmin();
+    toast('Exited admin mode');
+    return;
+  }
+  // Show admin login modal
+  const lscr=G('lscr');
+  lscr.classList.add('open');
+  G('lerr').style.display='none';
+  G('lpw').value='';
+  setTimeout(()=>G('lpw').focus(),150);
+}
+function closeLscr(){G('lscr').classList.remove('open');
+  // If access not granted, show access screen again
+  if(!isAccessGranted()){
+    G('accessScr').classList.remove('hide');
+    setTimeout(()=>G('accessInput').focus(),100);
   }
 }
-
-function resetAuthBtn(){
-  G('authSubmit').disabled=false;
-  G('authSubmit').textContent=authFormMode==='signup'?'Create Account →':'Sign In →';
-}
-
-async function doSignOut(){
-  try{
-    await fbAuth.signOut();
-  }catch(e){console.warn('signOut error',e)}
-}
-
-// Called by the auth state observer whenever auth state changes
-function onUserSignedIn(user){
-  currentUser=user;
-  // Hide auth screen, show app
-  G('authScr').classList.add('hide');
-  G('authLoading').classList.add('hide');
-  // Show user chip + sign-out button
-  const chip=G('navUser'),signout=G('signoutBtn');
-  if(chip){chip.style.display='flex';
-    const nm=user.displayName||user.email?.split('@')[0]||'User';
-    G('nuNm').textContent=nm;
-    G('nuAv').textContent=(nm[0]||'V').toUpperCase();
+function doLogin(){
+  const pw=G('lpw').value;
+  if(pw===S.settings.adminPw){
+    S.adminMode=true;
+    G('lscr').classList.remove('open');
+    // Grant access if not already
+    if(!isAccessGranted())grantAccess();
+    applyAdmin();
+    trackVisit();
+    renderPage();
+    toast('Welcome back, Admin! 👑');
+  }else{
+    G('lerr').style.display='block';
+    G('lpw').value='';
+    G('lpw').focus();
+    shakeCard(G('lscr').querySelector('.login-card'));
   }
-  if(signout)signout.style.display='block';
-  resetAuthBtn();
 }
+G('lpw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+G('accessInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();submitAccess()}});
 
-function onUserSignedOut(){
-  currentUser=null;
-  S.adminMode=false;
-  // Reset in-memory state to defaults (so a different user signing in next doesn't see stale data)
-  resetStateToDefaults();
-  // NOTE: we deliberately do NOT wipe localStorage — it's now keyed per-user (lsKey),
-  // so each account keeps its own cache for instant re-login.
-  localStorage.removeItem('vk_history');
-
-  // Show auth screen again
-  G('authScr').classList.remove('hide');
-  G('navUser').style.display='none';
-  G('signoutBtn').style.display='none';
-  applyAdmin();
+function applyAdmin(){
+  document.body.classList.toggle('admin-mode',S.adminMode);
+  const btn=G('adminBtn');if(btn){btn.textContent=S.adminMode?'🔒':'🛡️';btn.classList.toggle('on',S.adminMode);}
+  G('adminRow').style.display=S.adminMode?'block':'none';
+  if(G('evAddBtn'))G('evAddBtn').style.display=S.adminMode?'':'none';
+  if(G('postAddBtn'))G('postAddBtn').style.display=S.adminMode?'':'none';
+  if(G('musicEditBtn'))G('musicEditBtn').style.display=S.adminMode?'flex':'none';
+  if(G('galAddBtn'))G('galAddBtn').style.display=S.adminMode?'':'none';
+  renderCatTabs();renderAll();renderQuickLinks();renderNote();renderEvents();renderProgBar();updateQsBar();renderSpotlight();
+  renderMusicBar();renderGallery();
+  if(S.adminMode&&!G('btnOnline')){
+    const ar=G('adminRow').querySelector('.arow');
+    if(ar){const b=document.createElement('button');b.id='btnOnline';b.className='abtn';b.textContent='🟢 Status';b.onclick=()=>openOnlineEdit();ar.appendChild(b);}
+  }
 }
-
-// Handle Enter key in auth form
-['authEmail','authPass','authPass2','authName'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();authSubmit();}});
-});
 
 // ═══════════════ RENDER PAGE ═══════════════
 function renderPage(){
@@ -1891,6 +1623,7 @@ function renderPage(){
   renderAnnounce();renderTicker();renderSpotlight();renderQuickLinks();
   renderNote();renderEvents();renderAll();renderFooter();renderProgBar();
   renderShareBar();updateQsBar();
+  renderOnlineStatus();renderMusicBar();renderCountdown();renderTips();renderGallery();renderHistory();
 }
 function renderAll(){renderLinks();renderPosts();}
 
@@ -1905,7 +1638,7 @@ function renderProfile(){
   if(p.coverUrl){ci.src=p.coverUrl;ci.style.display='block';}else ci.style.display='none';
 }
 function renderSocials(){
-  G('socialRow').innerHTML=S.profile.socials.map(s=>`<a class="spill" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.icon)}</a>`).join('');
+  G('socialRow').innerHTML=(S.profile.socials||[]).map(s=>`<a class="spill" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.icon)}</a>`).join('');
 }
 function animCount(el,target){
   if(!el)return;const start=parseInt(el.textContent)||0,diff=target-start;
@@ -2097,7 +1830,6 @@ function renderLinks(){
   let total=0;
   cats.forEach(cat=>{
     let links=S.links.filter(l=>l.catId===cat.id);
-    // Filter expired for public
     if(!S.adminMode)links=links.filter(l=>l.enabled&&(!l.expiry||l.expiry>=today));
     if(q)links=links.filter(l=>l.title.toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q));
     links=sortLinks(links);
@@ -2222,7 +1954,6 @@ function showLinkQR(lnk){
 }
 
 // ═══════════════ LINK CRUD ═══════════════
-const LCOLS=['','#7c5cfc','#06d6a0','#f59e0b','#ef4444','#3b82f6','#f472b6','#10b981'];
 function buildEGrid(){G('eGrid').innerHTML=EMOJIS.map(e=>`<button class="eo${e===selEmoji?' sel':''}" data-e="${e}">${e}</button>`).join('');G('eGrid').querySelectorAll('.eo').forEach(b=>b.onclick=()=>{selEmoji=b.dataset.e;G('eGrid').querySelectorAll('.eo').forEach(x=>x.classList.toggle('sel',x.dataset.e===selEmoji))})}
 function buildCatSel(sel=''){G('fCat').innerHTML=S.categories.map(c=>`<option value="${c.id}"${c.id===sel?' selected':''}>${c.icon} ${c.name}</option>`).join('')}
 function buildColorRow(){
@@ -2255,55 +1986,11 @@ async function saveProfile(){const p=S.profile;p.name=G('epN').value.trim();p.ha
 function handleAvatar(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{S.profile.avatarUrl=e.target.result;await dbSave('app/profile',S.profile);renderProfile();renderProgBar();toast('Avatar updated ✓')};r.readAsDataURL(f)}
 function handleCover(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{S.profile.coverUrl=e.target.result;const ci=G('coverImg');ci.src=S.profile.coverUrl;ci.style.display='block';await dbSave('app/profile',S.profile);renderProgBar();toast('Cover updated ✓')};r.readAsDataURL(f)}
 
-// ═══════════════ ADMIN LOGIN ═══════════════
-// In admin page (signed in), the Admin button toggles preview/edit mode directly.
-// The old password modal is only used as a fallback when Firebase auth isn't available.
-function onAdminClick(){
-  if(pageMode==='viewer'){openAdminPage();return;}
-  if(currentUser){
-    // Signed in via Firebase — toggle edit/preview mode directly, no password needed
-    S.adminMode=!S.adminMode;
-    applyAdmin();
-    toast(S.adminMode?'Edit mode ON 👑':'Preview mode (viewer view) 👁️');
-    return;
-  }
-  // Fallback: not signed in — show old password modal (legacy)
-  if(S.adminMode){S.adminMode=false;applyAdmin();toast('Exited admin mode');}
-  else{const lscr=G('lscr');lscr.classList.add('open');G('lerr').style.display='none';G('lpw').value='';setTimeout(()=>G('lpw').focus(),150);}
-}
-function closeLscr(){G('lscr').classList.remove('open')}
-function doLogin(){
-  const pw=G('lpw').value;
-  if(pw===S.settings.adminPw){
-    S.adminMode=true;closeLscr();applyAdmin();
-    toast('Welcome back, Admin! 👑');
-    // Confetti-style welcome
-    G('lscr').animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'});
-  }else{
-    G('lerr').style.display='block';G('lpw').value='';G('lpw').focus();
-    // Shake animation on wrong password
-    const card=G('lscr').querySelector('.login-card');
-    card?.animate([
-      {transform:'translateX(0)'},{transform:'translateX(-10px)'},
-      {transform:'translateX(10px)'},{transform:'translateX(-6px)'},
-      {transform:'translateX(6px)'},{transform:'translateX(0)'}
-    ],{duration:400,easing:'ease-out'});
-  }
-}
-G('lpw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-function applyAdmin(){
-  document.body.classList.toggle('admin-mode',S.adminMode);
-  const btn=G('adminBtn');btn.textContent=S.adminMode?'🔒 Exit Admin':'🛡️ Admin';btn.classList.toggle('on',S.adminMode);
-  G('adminRow').style.display=S.adminMode?'block':'none';
-  if(G('evAddBtn'))G('evAddBtn').style.display=S.adminMode?'':'none';
-  if(G('postAddBtn'))G('postAddBtn').style.display=S.adminMode?'':'none';
-  renderCatTabs();renderAll();renderQuickLinks();renderNote();renderEvents();renderProgBar();updateQsBar();renderSpotlight();
-}
-
 // ═══════════════ SETTINGS ═══════════════
-function openSettings(){if(!S.adminMode)return;G('settUrl').textContent=location.href.split('?')[0];G('pwC').value='';G('pwN').value='';G('pwCf').value='';renderCatMgr();document.querySelectorAll('.stab').forEach((t,i)=>t.classList.toggle('on',i===0));document.querySelectorAll('.span').forEach((p,i)=>p.classList.toggle('on',i===0));openModal('mSettings')}
+function openSettings(){if(!S.adminMode)return;G('settUrl').textContent=location.href.split('?')[0];G('pwAccess').value=S.settings.accessCode||'';G('pwC').value='';G('pwN').value='';G('pwCf').value='';renderCatMgr();document.querySelectorAll('.stab').forEach((t,i)=>t.classList.toggle('on',i===0));document.querySelectorAll('.span').forEach((p,i)=>p.classList.toggle('on',i===0));openModal('mSettings')}
 function switchStab(el,pid){document.querySelectorAll('.stab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.span').forEach(p=>p.classList.remove('on'));el.classList.add('on');G(pid).classList.add('on');if(pid==='s-cats')renderCatMgr()}
-async function changePw(){const c=G('pwC').value,n=G('pwN').value,cf=G('pwCf').value;if(c!==S.settings.adminPw)return toast('Wrong current password ❌');if(!n||n.length<4)return toast('New password too short');if(n!==cf)return toast('Passwords do not match');S.settings.adminPw=n;await dbSave('app/settings',S.settings);G('pwC').value='';G('pwN').value='';G('pwCf').value='';toast('Password updated ✓')}
+async function changeAccessCode(){const v=G('pwAccess').value.trim();if(!v||v.length<3)return toast('Access code too short (min 3)');S.settings.accessCode=v;await dbSave('app/settings',S.settings);toast('Access code updated ✓')}
+async function changePw(){const c=G('pwC').value,n=G('pwN').value,cf=G('pwCf').value;if(c!==S.settings.adminPw)return toast('Wrong current password ❌');if(!n||n.length<4)return toast('New password too short');if(n!==cf)return toast('Passwords do not match');S.settings.adminPw=n;await dbSave('app/settings',S.settings);G('pwC').value='';G('pwN').value='';G('pwCf').value='';toast('Admin password updated ✓')}
 
 // ═══════════════ RESET / DANGER ZONE ═══════════════
 async function resetLinks(){if(!confirm('Delete ALL links permanently?'))return;S.links=[];await dbSave('app/links',{list:S.links});renderStats();renderLinks();renderQuickLinks();renderSpotlight();renderFooter();updateQsBar();toast('All links deleted')}
@@ -2319,21 +2006,27 @@ async function resetAll(){
   const pw=prompt('Enter admin password to confirm full reset:');
   if(pw!==S.settings.adminPw){toast('Wrong password ❌');return;}
   const savedPw=S.settings.adminPw;
+  const savedAccess=S.settings.accessCode;
   S.links=JSON.parse(JSON.stringify(DEF.links));S.categories=JSON.parse(JSON.stringify(DEF.categories));
   S.posts=[];S.events=[];S.note={title:'📌 Note',text:'',visible:false};S.announce={title:'',text:'',visible:false,waLink:''};
   S.analytics={visitors:0,clicks:0};
   Object.assign(S.profile,JSON.parse(JSON.stringify(DEF.profile)));
-  Object.assign(S.settings,{...JSON.parse(JSON.stringify(DEF.settings)),adminPw:savedPw});
-  localStorage.removeItem('vk_fin_'+location.hostname);sessionStorage.removeItem('ann_dis');
+  Object.assign(S.settings,{...JSON.parse(JSON.stringify(DEF.settings)),adminPw:savedPw,accessCode:savedAccess});
+  SX.music={title:'',artist:'',icon:'🎵',visible:false};
+  SX.countdown={label:'🔥 Countdown',target:'',visible:false};
+  SX.tips={list:[],visible:false};SX.gallery={images:[],visible:false};SX.onlineStatus={text:'Online Now',visible:false};
+  localStorage.removeItem('vk_fin_'+location.hostname);sessionStorage.removeItem('ann_dis');localStorage.removeItem('vk_history');localStorage.removeItem(LS_KEY);
   await dbSave('app/links',{list:S.links});await dbSave('app/categories',{list:S.categories});
   await dbSave('app/posts',{list:S.posts});await dbSave('app/events',{list:S.events});
   await dbSave('app/note',S.note);await dbSave('app/announce',S.announce);
   await dbSave('app/analytics',S.analytics);await dbSave('app/profile',S.profile);await dbSave('app/settings',S.settings);
-  closeModal('mSettings');renderPage();toast('Reset complete — everything restored ✓');
+  await dbSave('app/music',SX.music);await dbSave('app/countdown',SX.countdown);
+  await dbSave('app/tips',SX.tips);await dbSave('app/gallery',SX.gallery);await dbSave('app/online',SX.onlineStatus);
+  closeModal('mSettings');renderPage();toast('Reset complete ✓');
 }
 
 // ═══════════════ IMPORT / EXPORT ═══════════════
-function exportData(){const data=JSON.stringify({version:5,exportedAt:new Date().toISOString(),profile:S.profile,categories:S.categories,links:S.links,posts:S.posts,events:S.events},null,2);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='vikesh-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Exported ⬇️')}
+function exportData(){const data=JSON.stringify({version:6,exportedAt:new Date().toISOString(),profile:S.profile,categories:S.categories,links:S.links,posts:S.posts,events:S.events,music:SX.music,countdown:SX.countdown,tips:SX.tips,gallery:SX.gallery,onlineStatus:SX.onlineStatus,settings:S.settings},null,2);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='vikesh-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Exported ⬇️')}
 async function importData(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=async e=>{try{const d=JSON.parse(e.target.result);let added=0;if(d.links)d.links.forEach(l=>{if(!S.links.find(x=>x.url===l.url&&x.title===l.title)){S.links.push({...l,id:'l'+Date.now()+Math.random().toString(36).slice(2)});added++}});if(d.categories)d.categories.forEach(c=>{if(!S.categories.find(x=>x.name===c.name))S.categories.push({...c,id:'cat'+Date.now()+Math.random().toString(36).slice(2)})});if(d.posts)d.posts.forEach(p=>{if(!S.posts.find(x=>x.ts===p.ts))S.posts.push({...p,id:'p'+Date.now()+Math.random().toString(36).slice(2)})});await dbSave('app/links',{list:S.links});await dbSave('app/categories',{list:S.categories});await dbSave('app/posts',{list:S.posts});renderPage();toast(`Imported ${added} items ✓`);}catch(err){toast('Invalid backup file ❌')}};r.readAsText(f);input.value=''}
 
 // ═══════════════ VCARD ═══════════════
@@ -2357,7 +2050,6 @@ function dlQR(cid,fn){const c=G(cid)?.querySelector('canvas');if(!c)return;const
 function shareProfile(){const url=location.href.split('?')[0];if(navigator.share)navigator.share({title:S.profile.name+' Links',url}).catch(()=>{});else copyText(url)}
 function openCopyAll(){const txt=S.links.filter(l=>l.enabled).map(l=>`${l.icon} ${l.title}: ${l.url}`).join('\n');const ov=document.createElement('div');ov.className='ov open';ov.innerHTML=`<div class="modal"><div class="mdrag"></div><div class="mhead"><div class="mtitle">📋 All Links</div><button class="mcls" id="caX">✕</button></div><textarea style="width:100%;height:200px;background:var(--bg3);border:1px solid var(--bd2);border-radius:var(--rs);padding:11px;color:var(--tx);font-size:12px;line-height:1.6;font-family:Inter,sans-serif;resize:none;outline:none" readonly>${esc(txt)}</textarea><button class="btn bp" id="caBtn" style="margin-top:11px">📋 Copy All Links</button></div>`;document.body.appendChild(ov);ov.querySelector('#caX').onclick=()=>ov.remove();ov.querySelector('#caBtn').onclick=()=>copyText(txt);ov.onclick=e=>{if(e.target===ov)ov.remove()}}
 
-// ANALYTICS — available to ALL visitors, not just admin
 function openAnalytics(){
   const totalClicks=S.links.reduce((s,l)=>s+(l.clicks||0),0);
   G('agrid').innerHTML=`
@@ -2392,20 +2084,6 @@ window.addEventListener('scroll',()=>G('stBtn').classList.toggle('vis',scrollY>3
 function openLB(src){G('lbImg').src=src;G('lightbox').classList.add('open')}
 function closeLB(){G('lightbox').classList.remove('open');setTimeout(()=>G('lbImg').src='',300)}
 
-// ═══════════════ EXTENDED STATE ═══════════════
-// Extra fields merged into S after initDB
-const SX = {
-  music:{title:'',artist:'',icon:'🎵',visible:false},
-  countdown:{label:'🔥 Event Countdown',target:'',visible:false},
-  tips:{list:[],visible:false},
-  gallery:{images:[],visible:false},
-  onlineStatus:{text:'Online Now',visible:false}
-};
-
-// Merge SX into S on load — extra fields are now loaded inside loadDB()
-// (kept as no-op for backward compat with any call site)
-async function loadExtraDB(){return;}
-
 // ═══════════════ ONLINE STATUS ═══════════════
 function renderOnlineStatus(){
   const badge=G('onlineBadge');
@@ -2429,15 +2107,8 @@ function renderMusicBar(){
   } else { bar.classList.remove('show'); musicPlaying=false; }
   updateMusicUI();
 }
-function toggleMusic(){
-  musicPlaying=!musicPlaying;updateMusicUI();
-  toast(musicPlaying?'🎵 Playing…':'⏸ Paused');
-}
-function updateMusicUI(){
-  const btn=G('musicPlayBtn');const bar=G('musicBar');
-  if(btn)btn.textContent=musicPlaying?'⏸':'▶';
-  if(bar)bar.classList.toggle('playing',musicPlaying);
-}
+function toggleMusic(){musicPlaying=!musicPlaying;updateMusicUI();toast(musicPlaying?'🎵 Playing…':'⏸ Paused')}
+function updateMusicUI(){const btn=G('musicPlayBtn');const bar=G('musicBar');if(btn)btn.textContent=musicPlaying?'⏸':'▶';if(bar)bar.classList.toggle('playing',musicPlaying)}
 function openMusicEdit(){if(!S.adminMode)return;G('muTitle').value=SX.music.title||'';G('muArtist').value=SX.music.artist||'';G('muIco').value=SX.music.icon||'🎵';G('muVis').checked=!!SX.music.visible;openModal('mMusic')}
 async function saveMusic(){SX.music.title=G('muTitle').value.trim();SX.music.artist=G('muArtist').value.trim();SX.music.icon=G('muIco').value.trim()||'🎵';SX.music.visible=G('muVis').checked;await dbSave('app/music',SX.music);closeModal('mMusic');renderMusicBar();toast('Music saved ✓')}
 
@@ -2480,17 +2151,10 @@ function showTip(i){
 }
 function nextTip(){showTip(tipIdx+1)}
 function prevTip(){showTip(tipIdx-1)}
-function openTipsEdit(){
-  if(!S.adminMode)return;
-  G('tipInput').value='';G('tipAuthorInput').value='';G('tipsVis').checked=!!SX.tips.visible;
-  renderTipsList();openModal('mTips');
-}
-function renderTipsList(){
-  const list=G('tipsList');if(!list)return;
-  list.innerHTML=(SX.tips.list||[]).map((t,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--sf);border-radius:var(--rs);border:1px solid var(--bd)"><div style="flex:1;min-width:0"><div style="font-size:12px;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"${esc(t.text)}"</div><div style="font-size:11px;color:var(--tx3);margin-top:1px">${esc(t.author)}</div></div><button onclick="removeTip(${i})" style="background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('');
-}
-async function addTip(){const text=G('tipInput').value.trim(),author=G('tipAuthorInput').value.trim();if(!text)return toast('Enter tip text');if(!SX.tips.list)SX.tips.list=[];SX.tips.list.push({text,author});G('tipInput').value='';G('tipAuthorInput').value='';renderTipsList();}
-async function removeTip(i){SX.tips.list.splice(i,1);renderTipsList();}
+function openTipsEdit(){if(!S.adminMode)return;G('tipInput').value='';G('tipAuthorInput').value='';G('tipsVis').checked=!!SX.tips.visible;renderTipsList();openModal('mTips')}
+function renderTipsList(){const list=G('tipsList');if(!list)return;list.innerHTML=(SX.tips.list||[]).map((t,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--sf);border-radius:var(--rs);border:1px solid var(--bd)"><div style="flex:1;min-width:0"><div style="font-size:12px;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">"${esc(t.text)}"</div><div style="font-size:11px;color:var(--tx3);margin-top:1px">${esc(t.author)}</div></div><button onclick="removeTip(${i})" style="background:none;border:none;color:var(--tx3);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}
+async function addTip(){const text=G('tipInput').value.trim(),author=G('tipAuthorInput').value.trim();if(!text)return toast('Enter tip text');if(!SX.tips.list)SX.tips.list=[];SX.tips.list.push({text,author});G('tipInput').value='';G('tipAuthorInput').value='';renderTipsList()}
+async function removeTip(i){SX.tips.list.splice(i,1);renderTipsList()}
 async function saveTipsSettings(){SX.tips.visible=G('tipsVis').checked;await dbSave('app/tips',SX.tips);closeModal('mTips');renderTips();toast('Tips saved ✓')}
 
 // ═══════════════ GALLERY ═══════════════
@@ -2518,7 +2182,7 @@ function addGalleryImg(){if(!S.adminMode)return;galImgB64='';G('galUrl').value='
 function handleGalImg(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{galImgB64=e.target.result;G('galUrl').value='';G('galPrevImg').src=galImgB64;G('galPrev').style.display='block';toast('Image loaded ✓')};r.readAsDataURL(f)}
 async function saveGalleryImg(){const url=galImgB64||G('galUrl').value.trim();const caption=G('galCaption').value.trim();if(!url)return toast('Add an image');if(!SX.gallery.images)SX.gallery.images=[];SX.gallery.images.push({url,caption});SX.gallery.visible=G('galVis').checked;await dbSave('app/gallery',SX.gallery);closeModal('mGallery');renderGallery();toast('Image added ✓');galImgB64=''}
 
-// ═══════════════ LINK HISTORY (recently clicked) ═══════════════
+// ═══════════════ LINK HISTORY ═══════════════
 function getHistory(){try{return JSON.parse(localStorage.getItem('vk_history')||'[]')}catch{return[]}}
 function addToHistory(lnk){
   const h=getHistory().filter(x=>x.id!==lnk.id);
@@ -2532,17 +2196,7 @@ function renderHistory(){
   wrap.style.display='block';
   row.innerHTML=h.map(item=>`<div class="hitem" onclick="window.open('${esc(item.url)}','_blank','noopener')">${esc(item.icon)} ${esc(item.title)}</div>`).join('');
 }
-function clearHistory(){localStorage.removeItem('vk_history');renderHistory();}
-
-// Override trackClick to also add to history
-const _baseTrackClick = trackClick;
-async function trackClick(id){
-  const lnk=S.links.find(l=>l.id===id);if(!lnk)return;
-  lnk.clicks=(lnk.clicks||0)+1;S.analytics.clicks=(S.analytics.clicks||0)+1;
-  await dbSave('app/links',{list:S.links});await dbSave('app/analytics',S.analytics);
-  renderStats();renderLinks();updateQsBar();renderFooter();
-  addToHistory(lnk); // track in history
-}
+function clearHistory(){localStorage.removeItem('vk_history');renderHistory()}
 
 // ═══════════════ SEARCH SUGGESTIONS ═══════════════
 function showSuggestions(){
@@ -2562,159 +2216,42 @@ function selectSuggestion(id){
   else openEditLink(id);
 }
 
-// ═══════════════ EXTENDED renderPage ═══════════════
-const _baseRenderPage = renderPage;
-function renderPage(){
-  applyTheme();renderProfile();renderSocials();renderStats();renderCatTabs();
-  renderAnnounce();renderTicker();renderSpotlight();renderQuickLinks();
-  renderNote();renderEvents();renderAll();renderFooter();renderProgBar();
-  renderShareBar();updateQsBar();
-  // New features
-  renderOnlineStatus();renderMusicBar();renderCountdown();renderTips();renderGallery();renderHistory();
-}
-
-// ═══════════════ EXTENDED applyAdmin ═══════════════
-const _baseApplyAdmin = applyAdmin;
-function applyAdmin(){
-  document.body.classList.toggle('admin-mode',S.adminMode);
-  const btn=G('adminBtn');btn.textContent=S.adminMode?'🔒 Exit Admin':'🛡️ Admin';btn.classList.toggle('on',S.adminMode);
-  G('adminRow').style.display=S.adminMode?'block':'none';
-  if(G('evAddBtn'))G('evAddBtn').style.display=S.adminMode?'':'none';
-  if(G('postAddBtn'))G('postAddBtn').style.display=S.adminMode?'':'none';
-  if(G('musicEditBtn'))G('musicEditBtn').style.display=S.adminMode?'flex':'none';
-  if(G('galAddBtn'))G('galAddBtn').style.display=S.adminMode?'':'none';
-  renderCatTabs();renderAll();renderQuickLinks();renderNote();renderEvents();renderProgBar();updateQsBar();renderSpotlight();
-  renderMusicBar();renderGallery();
-  // Add online status button to admin row if not present
-  if(S.adminMode&&!G('btnOnline')){
-    const ar=G('adminRow').querySelector('.arow');
-    if(ar){const b=document.createElement('button');b.id='btnOnline';b.className='abtn';b.textContent='🟢 Status';b.onclick=()=>openOnlineEdit();ar.appendChild(b);}
-  }
-}
-
-// ═══════════════ EXTENDED exportData ═══════════════
-const _baseExportData = exportData;
-function exportData(){
-  const data=JSON.stringify({version:6,exportedAt:new Date().toISOString(),profile:S.profile,categories:S.categories,links:S.links,posts:S.posts,events:S.events,music:SX.music,countdown:SX.countdown,tips:SX.tips,gallery:SX.gallery,onlineStatus:SX.onlineStatus},null,2);
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download='vikesh-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Exported ⬇️');
-}
-
-// ═══════════════ EXTENDED resetAll ═══════════════
-const _baseResetAll = resetAll;
-async function resetAll(){
-  const pw=prompt('Enter admin password to confirm full reset:');
-  if(pw!==S.settings.adminPw){toast('Wrong password ❌');return;}
-  const savedPw=S.settings.adminPw;
-  S.links=JSON.parse(JSON.stringify(DEF.links));S.categories=JSON.parse(JSON.stringify(DEF.categories));
-  S.posts=[];S.events=[];S.note={title:'📌 Note',text:'',visible:false};S.announce={title:'',text:'',visible:false,waLink:''};
-  S.analytics={visitors:0,clicks:0};
-  Object.assign(S.profile,JSON.parse(JSON.stringify(DEF.profile)));
-  Object.assign(S.settings,{...JSON.parse(JSON.stringify(DEF.settings)),adminPw:savedPw});
-  SX.music={title:'',artist:'',icon:'🎵',visible:false};
-  SX.countdown={label:'🔥 Countdown',target:'',visible:false};
-  SX.tips={list:[],visible:false};SX.gallery={images:[],visible:false};SX.onlineStatus={text:'Online Now',visible:false};
-  localStorage.removeItem('vk_fin_'+location.hostname);sessionStorage.removeItem('ann_dis');localStorage.removeItem('vk_history');localStorage.removeItem(LS_KEY);
-  await dbSave('app/links',{list:S.links});await dbSave('app/categories',{list:S.categories});
-  await dbSave('app/posts',{list:S.posts});await dbSave('app/events',{list:S.events});
-  await dbSave('app/note',S.note);await dbSave('app/announce',S.announce);
-  await dbSave('app/analytics',S.analytics);await dbSave('app/profile',S.profile);await dbSave('app/settings',S.settings);
-  await dbSave('app/music',SX.music);await dbSave('app/countdown',SX.countdown);
-  await dbSave('app/tips',SX.tips);await dbSave('app/gallery',SX.gallery);await dbSave('app/online',SX.onlineStatus);
-  closeModal('mSettings');renderPage();toast('Reset complete ✓');
-}
-
 // ═══════════════ BOOT ═══════════════
-// Initialize Firebase and wire up auth state observer.
-// Page mode is decided by URL: default = viewer page, ?admin=1 = admin page.
 (async()=>{
-  // Detect page mode ASAP and apply body class (so correct elements are hidden)
-  detectPageMode();
+  // Initialize Firebase
+  initFirebase();
 
-  try{
-    fbApp=firebase.initializeApp(firebaseConfig);
-    fbAuth=firebase.auth();
-    fbDb=firebase.firestore();
-    // Persist sessions across reloads
-    fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(e=>console.warn('Persistence error',e));
-  }catch(e){
-    console.error('Firebase init failed:',e);
-    G('authLoading').classList.add('hide');
-    const err=G('authErr');
-    err.textContent='❌ Firebase failed to load: '+e.message+'. Check your config and Firebase Console settings.';
-    err.classList.add('show');
-    return;
-  }
+  // Load local cache first (instant render)
+  loadFromLocal();
+  renderPage();
+  S.adminMode=false;
+  applyAdmin();
 
-  // ── VIEWER PAGE branch ──
-  // Public, read-only. No auth screen. Loads from `public/site` doc.
-  if(pageMode==='viewer'){
-    G('authLoading').classList.add('hide');
-    G('authScr').classList.add('hide');
-
-    // Try cached local data first for instant render
-    loadFromLocal();
-    renderPage();
-    S.adminMode=false;
-    applyAdmin();
-
-    // Then load published public data from Firestore
+  // Try loading public cloud data (if available)
+  if(fbDb){
     const ok=await loadPublicData();
     if(ok){
       renderPage();
       S.adminMode=false;
       applyAdmin();
-    }else{
-      // Nothing published yet — show a friendly empty state if there's no local cache either
-      const hasLocal=localStorage.getItem(LS_KEY);
-      if(!hasLocal){
-        // Show a small notice on top of the page
-        toast('No published page yet. Owner: open ?admin=1 to sign in and publish.');
-      }
     }
-    trackVisit();
-    return;  // Do NOT attach auth observer for viewer page
   }
 
-  // ── ADMIN PAGE branch ──
-  // Requires Firebase sign-in. Auth state observer drives the rest.
-  fbAuth.onAuthStateChanged(async(user)=>{
-    if(user){
-      // User signed in — load their data and show the editor
-      onUserSignedIn(user);
-
-      // If new user, set display name into profile
-      const uname=user.displayName||'';
-      if(uname && (!S.profile.name || S.profile.name==='VIKESH')){
-        S.profile.name=uname.toUpperCase();
-      }
-
-      await initDB();      // loads from local first, then Firestore
-      await loadExtraDB();
-      renderPage();
-      // Auto-enable admin mode for the signed-in owner
-      S.adminMode=true;
-      applyAdmin();
-      toast('Signed in as '+(user.displayName||user.email));
-      setTimeout(saveToLocal,1000);
-      // Refresh publish status in settings panel
-      updatePublishStatus();
-    }else{
-      // User not signed in — show auth screen, hide app behind it
-      onUserSignedOut();
-      G('authLoading').classList.add('hide');
-      G('authScr').classList.remove('hide');
-      loadFromLocal();
-      renderPage();
-    }
-  });
+  // Check if access is already granted (sessionStorage persists across refresh within session)
+  if(isAccessGranted()){
+    grantAccess();
+    trackVisit();
+    renderPage();
+  } else {
+    // Show access code screen
+    document.body.classList.add('locked');
+    G('accessScr').classList.remove('hide');
+    setTimeout(()=>G('accessInput').focus(),100);
+  }
 
   // Auto-save local backup every 2 minutes
   setInterval(saveToLocal,120000);
 })();
 </script>
 </body>
-</html>
-    <script src="/script.js"></script>
-  </body>
-
 </html>
